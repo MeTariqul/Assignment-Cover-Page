@@ -3,228 +3,966 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment Cover Page Generator</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Gono Bishwabiddyalay - Assignment Cover Page Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #1a1a1a;
+            --bg-light: #f5f5f5;
+            --border: #ddd;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --focus: #0066cc;
+            --a4-width: 794px;
+            --a4-height: 1123px;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', 'Calibri', 'Arial', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+        }
+
+        .header {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            min-height: calc(100vh - 120px);
+        }
+
+        .form-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow-y: auto;
+            max-height: calc(100vh - 160px);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .form-section h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .form-group label .required {
+            color: #e74c3c;
+            margin-left: 0.25rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--focus);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+            position: sticky;
+            bottom: 0;
+            background: white;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            padding: 0.85rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .preview-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            max-height: calc(100vh - 160px);
+        }
+
+        .preview-scroll {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-bottom: 1rem;
+        }
+
+        .cover-page {
+            width: var(--a4-width);
+            min-height: var(--a4-height);
+            background: white;
+            padding: 72px 56px 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            font-family: 'Calibri', 'Arial', sans-serif;
+            position: relative;
+            page-break-after: avoid;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .cover-page * {
+            color: #000;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo-section img {
+            display: block;
+            height: 112px;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .university-name {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 42px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .assignment-title-text {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 54px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .details-section {
+            text-align: center;
+            width: 100%;
+            margin-bottom: 54px;
+            padding: 18px 10px;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        .detail-item {
+            font-size: 18px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .info-section {
+            margin-bottom: 36px;
+            text-align: center;
+        }
+
+        .info-section h4 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            margin-left: auto;
+            margin-right: auto;
+            text-decoration: underline;
+            letter-spacing: 0.2px;
+        }
+
+        .info-section p {
+            font-size: 18px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .info-section strong {
+            font-weight: 700;
+        }
+
+        .submission-date-section {
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+            padding-top: 18px;
+            border-top: 1px solid #000;
+        }
+
+        .submission-date-section p {
+            font-size: 16px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        .export-stage {
+            position: fixed;
+            top: 0;
+            left: -10000px;
+            width: var(--a4-width);
+            height: var(--a4-height);
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+            background: white;
+        }
+
+        .export-stage .cover-page {
+            transform: none !important;
+        }
+
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+            .form-panel, .preview-panel {
+                max-height: none;
+            }
+            .cover-page {
+                transform: scale(0.85);
+                transform-origin: top center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5rem; }
+            .app-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem;
+                min-height: auto;
+            }
+            .form-panel { padding: 1.5rem; max-height: none; }
+            .preview-panel { padding: 1rem; max-height: none; }
+            .action-buttons {
+                grid-template-columns: 1fr;
+                position: static;
+                background: transparent;
+                border-top: none;
+                padding: 1rem 0;
+            }
+            .cover-page {
+                transform: scale(0.75);
+                transform-origin: top center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.2rem; }
+            .cover-page { transform: scale(0.65); }
+        }
+
+        .form-panel::-webkit-scrollbar, .preview-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+        .form-panel::-webkit-scrollbar-track, .preview-panel::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .form-panel::-webkit-scrollbar-thumb, .preview-panel::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        .form-panel::-webkit-scrollbar-thumb:hover, .preview-panel::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .footer {
+            background-color: #f9f9f9;
+            border-top: 1px solid var(--border);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 2rem;
+        }
+
+        .footer a {
+            color: var(--focus);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #0052a3;
+            text-decoration: underline;
+        }
+
+        .footer-icon {
+            margin-right: 5px;
+            font-size: 1.1rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
-        <div class="header-content">
-            <h1 class="header-title">📄 Assignment Cover Page Generator</h1>
-            <p class="header-desc">Create professional cover pages for your assignments</p>
+        <h1>📋 Assignment Cover Page Generator</h1>
+        <p>Gono Bishwabiddyalay</p>
+        <div id="libraryStatus" style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+            Loading libraries...
         </div>
     </header>
 
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Form Section -->
-        <div class="form-section">
-            <div class="form-card">
-                <form id="coverPageForm" class="form">
-                    <!-- Logo Upload Section -->
-                    <div class="form-group logo-upload">
-                        <label class="form-label">🏫 University Logo</label>
-                        <div class="file-input-wrapper">
-                            <input type="file" id="logoInput" accept="image/*" class="file-input">
-                        </div>
-                        <div id="logoPreview" class="logo-preview" style="display: none;">
-                            <span id="logoName" class="logo-name"></span>
-                            <button type="button" id="removeLogo" class="btn-remove">✕</button>
-                        </div>
-                    </div>
-
-                    <!-- University Name -->
+    <div class="app-container">
+        <div class="form-panel">
+            <form id="coverForm">
+                <div class="form-section">
+                    <h3>📘 Assignment Information</h3>
                     <div class="form-group">
-                        <label for="universityName" class="form-label">University Name</label>
-                        <input type="text" id="universityName" name="universityName" 
-                               placeholder="Enter university name" class="form-input">
+                        <label>Assignment Title <span class="required">*</span></label>
+                        <input type="text" id="assignmentTitle" placeholder="e.g., E-commerce Database Design" required>
                     </div>
-
-                    <!-- Student Info Section -->
-                    <div class="form-section-header">👤 Student Information</div>
-                    
                     <div class="form-group">
-                        <label for="studentName" class="form-label">Full Name *</label>
-                        <input type="text" id="studentName" name="studentName" 
-                               placeholder="John Doe" class="form-input" required>
-                        <span class="error-msg" id="error-studentName"></span>
+                        <label>Course Title <span class="required">*</span></label>
+                        <input type="text" id="courseTitle" placeholder="e.g., Database Management System" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="studentID" class="form-label">Student ID *</label>
-                        <input type="text" id="studentID" name="studentID" 
-                               placeholder="2024001" class="form-input" required>
-                        <span class="error-msg" id="error-studentID"></span>
+                        <label>Course Code <span class="required">*</span></label>
+                        <input type="text" id="courseCode" placeholder="e.g., CSE-2301" required>
                     </div>
+                </div>
 
+                <div class="form-section">
+                    <h3>👨‍🏫 Teacher Information</h3>
                     <div class="form-group">
-                        <label for="studentDepartment" class="form-label">Department</label>
-                        <input type="text" id="studentDepartment" name="studentDepartment" 
-                               placeholder="Computer Science" class="form-input">
+                        <label>Teacher Name <span class="required">*</span></label>
+                        <input type="text" id="teacherName" placeholder="e.g., Dr. Rahman" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="studentProgram" class="form-label">Program</label>
-                        <input type="text" id="studentProgram" name="studentProgram" 
-                               placeholder="B.Sc. Computer Science" class="form-input">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="studentSemester" class="form-label">Semester</label>
-                        <input type="text" id="studentSemester" name="studentSemester" 
-                               placeholder="4th Semester" class="form-input">
-                    </div>
-
-                    <!-- Course Info Section -->
-                    <div class="form-section-header">📚 Course Information</div>
-                    
-                    <div class="form-group">
-                        <label for="courseName" class="form-label">Course Name *</label>
-                        <input type="text" id="courseName" name="courseName" 
-                               placeholder="Advanced Web Development" class="form-input" required>
-                        <span class="error-msg" id="error-courseName"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="courseCode" class="form-label">Course Code *</label>
-                        <input type="text" id="courseCode" name="courseCode" 
-                               placeholder="CS-401" class="form-input" required>
-                        <span class="error-msg" id="error-courseCode"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="assignmentTitle" class="form-label">Assignment Title *</label>
-                        <input type="text" id="assignmentTitle" name="assignmentTitle" 
-                               placeholder="E-commerce Platform Design" class="form-input" required>
-                        <span class="error-msg" id="error-assignmentTitle"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="submittedDate" class="form-label">Submission Date</label>
-                        <input type="date" id="submittedDate" name="submittedDate" class="form-input">
-                    </div>
-
-                    <!-- Teacher Info Section -->
-                    <div class="form-section-header">👨‍🏫 Instructor Information</div>
-                    
-                    <div class="form-group">
-                        <label for="instructorName" class="form-label">Instructor Name *</label>
-                        <input type="text" id="instructorName" name="instructorName" 
-                               placeholder="Dr. Jane Smith" class="form-input" required>
-                        <span class="error-msg" id="error-instructorName"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="instructorTitle" class="form-label">Title</label>
-                        <input type="text" id="instructorTitle" name="instructorTitle" 
-                               placeholder="Professor" class="form-input">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="instructorDepartment" class="form-label">Department</label>
-                        <input type="text" id="instructorDepartment" name="instructorDepartment" 
-                               placeholder="Computer Science" class="form-input">
-                    </div>
-
-                    <!-- Customization Section -->
-                    <div class="form-section-header">🎨 Customization</div>
-                    
-                    <div class="form-group">
-                        <label for="documentType" class="form-label">Document Type</label>
-                        <select id="documentType" name="documentType" class="form-select">
-                            <option value="ASSIGNMENT">Assignment</option>
-                            <option value="LAB_REPORT">Lab Report</option>
-                            <option value="PROJECT_REPORT">Project Report</option>
-                            <option value="CUSTOM">Custom</option>
+                        <label>Designation <span class="required">*</span></label>
+                        <select id="designation" required>
+                            <option value="">-- Select Designation --</option>
+                            <option value="Lecturer">Lecturer</option>
+                            <option value="Senior Lecturer">Senior Lecturer</option>
+                            <option value="Assistant Professor">Assistant Professor</option>
+                            <option value="Associate Professor">Associate Professor</option>
+                            <option value="Professor">Professor</option>
                         </select>
                     </div>
-
-                    <div class="form-group" style="display: none;">
-                        <input type="text" id="customDocType" name="customDocType" 
-                               placeholder="Enter custom document type" class="form-input">
-                    </div>
-
                     <div class="form-group">
-                        <label for="fontType" class="form-label">Font Type</label>
-                        <select id="fontType" name="fontType" class="form-select">
-                            <option value="serif">Serif</option>
-                            <option value="sans">Sans-serif</option>
+                        <label>Department</label>
+                        <input type="text" id="teacherDept" placeholder="e.g., Department of Computer Science" value="Department of Computer Science">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>👨‍🎓 Student Information</h3>
+                    <div class="form-group">
+                        <label>Student Name <span class="required">*</span></label>
+                        <input type="text" id="studentName" placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Student ID <span class="required">*</span></label>
+                        <input type="text" id="studentID" placeholder="e.g., 191-0400-001" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" id="studentDept" placeholder="e.g., Department of Computer Science" value="Department of Computer Science">
+                    </div>
+                    <div class="form-group">
+                        <label>Semester</label>
+                        <select id="semester" required>
+                            <option value="">-- Select Semester --</option>
+                            <option value="1st Semester">1st Semester</option>
+                            <option value="2nd Semester">2nd Semester</option>
+                            <option value="3rd Semester">3rd Semester</option>
+                            <option value="4th Semester" selected>4th Semester</option>
+                            <option value="5th Semester">5th Semester</option>
+                            <option value="6th Semester">6th Semester</option>
+                            <option value="7th Semester">7th Semester</option>
+                            <option value="8th Semester">8th Semester</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label for="textAlignment" class="form-label">Text Alignment</label>
-                        <select id="textAlignment" name="textAlignment" class="form-select">
-                            <option value="center">Center</option>
-                            <option value="left">Left</option>
-                        </select>
+                        <label>Section (Optional)</label>
+                        <input type="text" id="section" placeholder="e.g., A or B">
                     </div>
+                </div>
 
-                    <div class="form-group checkbox">
-                        <input type="checkbox" id="useUppercase" name="useUppercase" class="form-checkbox" checked>
-                        <label for="useUppercase" class="form-label-inline">Use uppercase formatting</label>
+                <div class="form-section">
+                    <h3>📅 Submission Details</h3>
+                    <div class="form-group">
+                        <label>Submission Date <span class="required">*</span></label>
+                        <input type="date" id="submissionDate" required>
                     </div>
+                </div>
 
-                    <!-- Download Button -->
-                    <button type="button" id="downloadBtn" class="btn-download">📥 Download PDF</button>
-                </form>
-            </div>
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-primary" id="downloadPdfBtn">📥 Download PDF</button>
+                    <button type="button" class="btn btn-primary" id="downloadImageBtn">🖼️ Download Image</button>
+                </div>
+            </form>
         </div>
 
-        <!-- Preview Section -->
-        <div class="preview-section">
-            <div class="preview-container">
-                <div class="preview-scroll">
-                    <div id="a4-preview" class="a4-preview">
-                        <!-- Logo -->
-                        <div class="preview-logo"></div>
+        <div class="preview-panel">
+            <div class="preview-scroll">
+                <div class="cover-page" id="coverPage">
+                    <div class="logo-section">
+                        <img src="logo.jpg" alt="Gono Bishwabiddyalay Logo" crossorigin="anonymous">
+                    </div>
 
-                        <!-- University Name -->
-                        <div class="preview-university">
-                            <h1>University Name</h1>
-                        </div>
+                    <div class="university-name">GONO BISHWABIDDYALAY</div>
 
-                        <!-- Document Type -->
-                        <div class="preview-doctype">
-                            <h2>ASSIGNMENT</h2>
-                        </div>
+                    <div class="assignment-title-text">ASSIGNMENT</div>
 
-                        <!-- Course Info -->
-                        <div class="preview-course">
-                            <p>Course Name</p>
-                            <p>(Course Code)</p>
-                            <p>Assignment Title</p>
-                        </div>
+                    <div class="details-section">
+                        <div class="detail-item" id="previewAssignmentTitle">Assignment Title</div>
+                        <div class="detail-item" id="previewCourseTitle">Course Title</div>
+                        <div class="detail-item" id="previewCourseCode">Course Code</div>
+                    </div>
 
-                        <!-- Divider -->
-                        <hr class="preview-divider">
+                    <div class="info-section">
+                        <h4>Submitted To:</h4>
+                        <p><strong id="previewTeacherName">Teacher Name</strong></p>
+                        <p id="previewDesignation">Designation</p>
+                        <p id="previewTeacherDept">Department</p>
+                    </div>
 
-                        <!-- Submitted By -->
-                        <div class="preview-submitted-by">
-                            <p class="preview-section-title">Submitted By:</p>
-                            <p>Student Name</p>
-                            <p>Student ID</p>
-                        </div>
+                    <div class="info-section">
+                        <h4>Submitted By:</h4>
+                        <p><strong id="previewStudentName">Student Name</strong></p>
+                        <p id="previewStudentID">ID: 00000000</p>
+                        <p id="previewStudentDept">Department</p>
+                        <p id="previewSemester">Semester</p>
+                        <p id="previewSection" style="display: none;">Section</p>
+                    </div>
 
-                        <!-- Submitted To -->
-                        <div class="preview-submitted-to">
-                            <p class="preview-section-title">Submitted To:</p>
-                            <p>Professor Instructor Name</p>
-                            <p>Department</p>
-                        </div>
-
-                        <!-- Date -->
-                        <div class="preview-date">
-                            <p>Date</p>
-                        </div>
+                    <div class="submission-date-section">
+                        <p>Date: <span id="previewDate">DD/MM/YYYY</span></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Footer with GitHub Credit -->
+    <footer class="footer">
+        <p><span class="footer-icon">🔗</span>Created for <strong>Gono Bishwabiddyalay</strong> | 
+        <a href="https://github.com/MeTariqul/Assignment-Cover-Page" target="_blank" rel="noopener noreferrer">📂 GitHub Repository</a></p>
+    </footer>
+
+    <!-- Libraries for PDF and Image Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="script.js"></script>
+    
+    <script>
+        // Check if libraries are loaded
+        let librariesReady = false;
+        let imageLoaded = false;
+        
+        // Check if logo image loads properly
+        window.addEventListener('load', () => {
+            const img = document.querySelector('.logo-section img');
+            if (img && img.complete && img.naturalHeight === 0) {
+                console.warn('Logo image failed to load');
+                imageLoaded = false;
+            } else {
+                console.log('Logo image loaded successfully');
+                imageLoaded = true;
+            }
+        });
+        
+        // Add error handler to image
+        document.addEventListener('DOMContentLoaded', () => {
+            const img = document.querySelector('.logo-section img');
+            if (img) {
+                img.addEventListener('error', () => {
+                    console.error('Logo image failed to load - CORS issue or missing file');
+                    imageLoaded = false;
+                });
+                img.addEventListener('load', () => {
+                    console.log('Logo image loaded successfully');
+                    imageLoaded = true;
+                });
+            }
+        });
+        
+        window.addEventListener('load', () => {
+            console.log('Page loaded. Checking libraries...');
+            const h2c = typeof html2canvas !== 'undefined';
+            const h2p = typeof html2pdf !== 'undefined';
+            const jspdf = typeof window.jspdf !== 'undefined' && typeof window.jspdf.jsPDF !== 'undefined';
+            console.log('html2canvas available:', h2c);
+            console.log('html2pdf available:', h2p);
+            console.log('jsPDF available:', jspdf);
+            librariesReady = h2c && jspdf;
+
+            const statusDiv = document.getElementById('libraryStatus');
+            if (statusDiv) {
+                statusDiv.innerHTML = `
+                    Libraries:
+                    ${h2c ? 'html2canvas ready' : 'html2canvas missing'} |
+                    ${jspdf ? 'jsPDF ready' : 'jsPDF missing'} |
+                    ${h2p ? 'html2pdf loaded' : 'html2pdf not loaded'}
+                `;
+                statusDiv.style.color = librariesReady ? '#90EE90' : '#FFB6C6';
+            }
+
+            console.log('All libraries ready:', librariesReady);
+        });
+
+        const A4_WIDTH_MM = 210;
+        const A4_HEIGHT_MM = 297;
+        const A4_WIDTH_PX = 794;
+        const A4_HEIGHT_PX = 1123;
+        const EXPORT_SCALE = 300 / 96;
+        const PDF_BUTTON_TEXT = 'Download PDF';
+        const IMAGE_BUTTON_TEXT = 'Download Image';
+        const STORAGE_KEY = 'gonoCoverPageData';
+
+        const state = {
+            assignmentTitle: '',
+            courseTitle: '',
+            courseCode: '',
+            teacherName: '',
+            designation: '',
+            teacherDept: 'Department of Computer Science',
+            studentName: '',
+            studentID: '',
+            studentDept: 'Department of Computer Science',
+            semester: '4th Semester',
+            section: '',
+            submissionDate: new Date().toISOString().split('T')[0]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFromStorage();
+            setDefaultDate();
+            setupEventListeners();
+            updatePreview();
+        });
+
+        function loadFromStorage() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    // Merge saved data with defaults (keeping any pre-defined defaults)
+                    Object.assign(state, {
+                        assignmentTitle: data.assignmentTitle || '',
+                        courseTitle: data.courseTitle || '',
+                        courseCode: data.courseCode || '',
+                        teacherName: data.teacherName || '',
+                        designation: data.designation || '',
+                        teacherDept: data.teacherDept || 'Department of Computer Science',
+                        studentName: data.studentName || '',
+                        studentID: data.studentID || '',
+                        studentDept: data.studentDept || 'Department of Computer Science',
+                        semester: data.semester || '4th Semester',
+                        section: data.section || '',
+                        submissionDate: data.submissionDate || new Date().toISOString().split('T')[0]
+                    });
+                    syncFormToUI();
+                } catch (e) {
+                    console.error('Failed to load from storage:', e);
+                }
+            }
+        }
+
+        function saveToStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        function syncFormToUI() {
+            document.getElementById('assignmentTitle').value = state.assignmentTitle;
+            document.getElementById('courseTitle').value = state.courseTitle;
+            document.getElementById('courseCode').value = state.courseCode;
+            document.getElementById('teacherName').value = state.teacherName;
+            document.getElementById('designation').value = state.designation;
+            document.getElementById('teacherDept').value = state.teacherDept;
+            document.getElementById('studentName').value = state.studentName;
+            document.getElementById('studentID').value = state.studentID;
+            document.getElementById('studentDept').value = state.studentDept;
+            document.getElementById('semester').value = state.semester;
+            document.getElementById('section').value = state.section;
+            document.getElementById('submissionDate').value = state.submissionDate;
+        }
+
+        function setDefaultDate() {
+            if (!state.submissionDate) {
+                state.submissionDate = new Date().toISOString().split('T')[0];
+            }
+
+            document.getElementById('submissionDate').value = state.submissionDate;
+        }
+
+        function updatePreview() {
+            document.getElementById('previewAssignmentTitle').textContent = state.assignmentTitle || 'Assignment Title';
+            document.getElementById('previewCourseTitle').textContent = state.courseTitle || 'Course Title';
+            document.getElementById('previewCourseCode').textContent = state.courseCode || 'Course Code';
+            document.getElementById('previewTeacherName').textContent = state.teacherName || 'Teacher Name';
+            document.getElementById('previewDesignation').textContent = state.designation || 'Designation';
+            document.getElementById('previewTeacherDept').textContent = state.teacherDept || 'Department';
+            document.getElementById('previewStudentName').textContent = state.studentName || 'Student Name';
+            document.getElementById('previewStudentID').textContent = `ID: ${state.studentID || '00000000'}`;
+            document.getElementById('previewStudentDept').textContent = state.studentDept || 'Department';
+            document.getElementById('previewSemester').textContent = state.semester || 'Semester';
+
+            const sectionEl = document.getElementById('previewSection');
+            if (state.section) {
+                sectionEl.textContent = 'Section: ' + state.section;
+                sectionEl.style.display = 'block';
+            } else {
+                sectionEl.style.display = 'none';
+            }
+
+            document.getElementById('previewDate').textContent = formatDate(state.submissionDate);
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return 'DD/MM/YYYY';
+            const date = new Date(dateStr + 'T00:00:00');
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        function setButtonState(button, label, disabled) {
+            button.disabled = disabled;
+            button.textContent = label;
+        }
+
+        function getSafeStudentName() {
+            return (state.studentName || 'Student')
+                .trim()
+                .replace(/[^\w-]+/g, '_')
+                .replace(/^_+|_+$/g, '') || 'Student';
+        }
+
+        function createExportStage() {
+            const source = document.getElementById('coverPage');
+
+            if (!source) {
+                throw new Error('Could not find content to export.');
+            }
+
+            const stage = document.createElement('div');
+            stage.className = 'export-stage';
+
+            const clone = source.cloneNode(true);
+            clone.id = 'coverPageExport';
+            clone.style.width = `${A4_WIDTH_PX}px`;
+            clone.style.minHeight = `${A4_HEIGHT_PX}px`;
+            clone.style.height = `${A4_HEIGHT_PX}px`;
+            clone.style.transform = 'none';
+
+            stage.appendChild(clone);
+            document.body.appendChild(stage);
+
+            return { stage, clone };
+        }
+
+        async function waitForExportAssets(container) {
+            if (document.fonts && document.fonts.ready) {
+                try {
+                    await document.fonts.ready;
+                } catch (error) {
+                    console.warn('Fonts were not fully ready before export.', error);
+                }
+            }
+
+            const images = Array.from(container.querySelectorAll('img'));
+            await Promise.all(images.map((img) => {
+                if (img.complete) {
+                    return Promise.resolve();
+                }
+
+                return new Promise((resolve) => {
+                    img.addEventListener('load', resolve, { once: true });
+                    img.addEventListener('error', resolve, { once: true });
+                });
+            }));
+        }
+
+        async function renderCoverPageCanvas() {
+            const { stage, clone } = createExportStage();
+
+            try {
+                await waitForExportAssets(clone);
+
+                return await html2canvas(clone, {
+                    scale: EXPORT_SCALE,
+                    backgroundColor: '#ffffff',
+                    allowTaint: false,
+                    useCORS: true,
+                    proxy: null,
+                    logging: false,
+                    imageTimeout: 5000,
+                    width: A4_WIDTH_PX,
+                    height: A4_HEIGHT_PX,
+                    windowWidth: A4_WIDTH_PX,
+                    windowHeight: A4_HEIGHT_PX,
+                    removeContainer: true,
+                    ignoreElements: (el) => el.tagName === 'SCRIPT'
+                });
+            } finally {
+                stage.remove();
+            }
+        }
+
+        function canvasToBlob(canvas) {
+            return new Promise((resolve, reject) => {
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        resolve(blob);
+                        return;
+                    }
+
+                    reject(new Error('Failed to create image file.'));
+                }, 'image/png');
+            });
+        }
+
+        function setupEventListeners() {
+            console.log('Setting up event listeners...');
+            
+            const inputs = document.querySelectorAll('#coverForm input, #coverForm select');
+            console.log('Found', inputs.length, 'form inputs');
+            
+            inputs.forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const id = e.target.id;
+                    state[id] = e.target.value;
+                    saveToStorage();
+                    updatePreview();
+                });
+
+                input.addEventListener('change', (e) => {
+                    const id = e.target.id;
+                    state[id] = e.target.value;
+                    saveToStorage();
+                    updatePreview();
+                });
+            });
+
+            const pdfBtn = document.getElementById('downloadPdfBtn');
+            const imgBtn = document.getElementById('downloadImageBtn');
+            
+            console.log('PDF Button found:', !!pdfBtn);
+            console.log('IMG Button found:', !!imgBtn);
+            
+            if (pdfBtn) {
+                pdfBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('PDF Button clicked');
+                    downloadPDF();
+                });
+            }
+            
+            if (imgBtn) {
+                imgBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('IMG Button clicked');
+                    downloadImage();
+                });
+            }
+            
+            console.log('Event listeners setup complete');
+        }
+
+        function validateForm() {
+            const required = ['assignmentTitle', 'courseTitle', 'courseCode', 'teacherName', 'designation', 'studentName', 'studentID', 'semester', 'submissionDate'];
+            
+            for (const field of required) {
+                if (!state[field] || state[field].trim() === '') {
+                    alert(`Please fill in all required fields. Missing: ${field}`);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        async function downloadPDF() {
+            console.log('=== PDF Download Started ===');
+
+            if (!validateForm()) {
+                alert('Please fill all required fields first!');
+                return;
+            }
+
+            if (typeof html2canvas === 'undefined' || !window.jspdf || !window.jspdf.jsPDF) {
+                console.error('PDF libraries are not ready');
+                alert('PDF libraries are not loaded. Please refresh the page.');
+                return;
+            }
+
+            if (!imageLoaded) {
+                console.warn('Warning: Logo image may not be properly loaded');
+            }
+
+            const button = document.getElementById('downloadPdfBtn');
+            setButtonState(button, 'Generating PDF...', true);
+
+            try {
+                const canvas = await renderCoverPageCanvas();
+                const imageData = canvas.toDataURL('image/png');
+                const pdf = new window.jspdf.jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4',
+                    compress: true
+                });
+
+                pdf.addImage(imageData, 'PNG', 0, 0, A4_WIDTH_MM, A4_HEIGHT_MM, undefined, 'FAST');
+                pdf.save(`Assignment_${getSafeStudentName()}_${state.submissionDate}.pdf`);
+                alert('PDF downloaded successfully.');
+            } catch (err) {
+                console.error('PDF function error:', err);
+                alert('PDF Error: ' + err.message);
+            } finally {
+                setButtonState(button, PDF_BUTTON_TEXT, false);
+            }
+        }
+
+        async function downloadImage() {
+            console.log('=== Image Download Started ===');
+
+            if (!validateForm()) {
+                alert('Please fill all required fields first!');
+                return;
+            }
+
+            if (typeof html2canvas === 'undefined') {
+                console.error('html2canvas not defined');
+                alert('Image library not loaded. Please refresh the page.');
+                return;
+            }
+
+            if (!imageLoaded) {
+                console.warn('Warning: Logo image may not be properly loaded');
+            }
+
+            const button = document.getElementById('downloadImageBtn');
+            setButtonState(button, 'Generating Image...', true);
+
+            try {
+                const canvas = await renderCoverPageCanvas();
+                const blob = await canvasToBlob(canvas);
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `Assignment_${getSafeStudentName()}_${state.submissionDate}.png`;
+                link.style.display = 'none';
+
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                alert('Image downloaded successfully.');
+            } catch (err) {
+                console.error('Image error:', err);
+                alert('Image Error: ' + (err.message || JSON.stringify(err)));
+            } finally {
+                setButtonState(button, IMAGE_BUTTON_TEXT, false);
+            }
+        }
+
+    </script>
 </body>
 </html>
