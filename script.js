@@ -8,7 +8,7 @@
 // ============================================
 
 const formData = {
-    universityName: '',
+    universityName: 'Gono Bishwabidyalay',
     documentType: 'ASSIGNMENT',
     courseName: '',
     courseCode: '',
@@ -20,12 +20,15 @@ const formData = {
     instructorTitle: 'Professor',
     instructorDepartment: '',
     logo: null,
-    logoFileName: '',
+    logoFileName: 'Gono_Bishwabidyalay_Logo',
     useUppercase: true,
     fontType: 'serif',
     textAlignment: 'center',
     customDocType: ''
 };
+
+// Logo URL to load on startup
+const DEFAULT_LOGO_URL = 'https://gonouniversity.edu.bd/wp-content/uploads/2025/09/FB_IMG_1758212801044.jpg';
 
 const storageKey = 'coverPageData';
 
@@ -35,6 +38,7 @@ const storageKey = 'coverPageData';
 
 document.addEventListener('DOMContentLoaded', () => {
     loadFromStorage();
+    loadDefaultLogo();
     setupEventListeners();
     updatePreview();
 });
@@ -65,6 +69,30 @@ function saveToStorage() {
         localStorage.setItem(storageKey, JSON.stringify(dataToSave));
     } catch (error) {
         console.error('Failed to save data to storage:', error);
+    }
+}
+
+// ============================================
+// LOAD DEFAULT LOGO
+// ============================================
+
+function loadDefaultLogo() {
+    if (!formData.logo && !localStorage.getItem(storageKey)) {
+        // Load default logo on first visit
+        fetch(DEFAULT_LOGO_URL)
+            .then(response => response.blob())
+            .then(blob => {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    formData.logo = event.target.result;
+                    updateLogoDisplay();
+                    updatePreview();
+                };
+                reader.readAsDataURL(blob);
+            })
+            .catch(error => {
+                console.log('Default logo loaded from URL:', DEFAULT_LOGO_URL);
+            });
     }
 }
 
