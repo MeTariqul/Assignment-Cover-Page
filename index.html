@@ -1,13 +1,230 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignment Cover Page Generator</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="header-title">📄 Assignment Cover Page Generator</h1>
+            <p class="header-desc">Create professional cover pages for your assignments</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Form Section -->
+        <div class="form-section">
+            <div class="form-card">
+                <form id="coverPageForm" class="form">
+                    <!-- Logo Upload Section -->
+                    <div class="form-group logo-upload">
+                        <label class="form-label">🏫 University Logo</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="logoInput" accept="image/*" class="file-input">
+                        </div>
+                        <div id="logoPreview" class="logo-preview" style="display: none;">
+                            <span id="logoName" class="logo-name"></span>
+                            <button type="button" id="removeLogo" class="btn-remove">✕</button>
+                        </div>
+                    </div>
+
+                    <!-- University Name -->
+                    <div class="form-group">
+                        <label for="universityName" class="form-label">University Name</label>
+                        <input type="text" id="universityName" name="universityName" 
+                               placeholder="Enter university name" class="form-input">
+                    </div>
+
+                    <!-- Student Info Section -->
+                    <div class="form-section-header">👤 Student Information</div>
+                    
+                    <div class="form-group">
+                        <label for="studentName" class="form-label">Full Name *</label>
+                        <input type="text" id="studentName" name="studentName" 
+                               placeholder="John Doe" class="form-input" required>
+                        <span class="error-msg" id="error-studentName"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentID" class="form-label">Student ID *</label>
+                        <input type="text" id="studentID" name="studentID" 
+                               placeholder="2024001" class="form-input" required>
+                        <span class="error-msg" id="error-studentID"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentDepartment" class="form-label">Department</label>
+                        <input type="text" id="studentDepartment" name="studentDepartment" 
+                               placeholder="Computer Science" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentProgram" class="form-label">Program</label>
+                        <input type="text" id="studentProgram" name="studentProgram" 
+                               placeholder="B.Sc. Computer Science" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentSemester" class="form-label">Semester</label>
+                        <input type="text" id="studentSemester" name="studentSemester" 
+                               placeholder="4th Semester" class="form-input">
+                    </div>
+
+                    <!-- Course Info Section -->
+                    <div class="form-section-header">📚 Course Information</div>
+                    
+                    <div class="form-group">
+                        <label for="courseName" class="form-label">Course Name *</label>
+                        <input type="text" id="courseName" name="courseName" 
+                               placeholder="Advanced Web Development" class="form-input" required>
+                        <span class="error-msg" id="error-courseName"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="courseCode" class="form-label">Course Code *</label>
+                        <input type="text" id="courseCode" name="courseCode" 
+                               placeholder="CS-401" class="form-input" required>
+                        <span class="error-msg" id="error-courseCode"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="assignmentTitle" class="form-label">Assignment Title *</label>
+                        <input type="text" id="assignmentTitle" name="assignmentTitle" 
+                               placeholder="E-commerce Platform Design" class="form-input" required>
+                        <span class="error-msg" id="error-assignmentTitle"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="submittedDate" class="form-label">Submission Date</label>
+                        <input type="date" id="submittedDate" name="submittedDate" class="form-input">
+                    </div>
+
+                    <!-- Teacher Info Section -->
+                    <div class="form-section-header">👨‍🏫 Instructor Information</div>
+                    
+                    <div class="form-group">
+                        <label for="instructorName" class="form-label">Instructor Name *</label>
+                        <input type="text" id="instructorName" name="instructorName" 
+                               placeholder="Dr. Jane Smith" class="form-input" required>
+                        <span class="error-msg" id="error-instructorName"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="instructorTitle" class="form-label">Title</label>
+                        <input type="text" id="instructorTitle" name="instructorTitle" 
+                               placeholder="Professor" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="instructorDepartment" class="form-label">Department</label>
+                        <input type="text" id="instructorDepartment" name="instructorDepartment" 
+                               placeholder="Computer Science" class="form-input">
+                    </div>
+
+                    <!-- Customization Section -->
+                    <div class="form-section-header">🎨 Customization</div>
+                    
+                    <div class="form-group">
+                        <label for="documentType" class="form-label">Document Type</label>
+                        <select id="documentType" name="documentType" class="form-select">
+                            <option value="ASSIGNMENT">Assignment</option>
+                            <option value="LAB_REPORT">Lab Report</option>
+                            <option value="PROJECT_REPORT">Project Report</option>
+                            <option value="CUSTOM">Custom</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="display: none;">
+                        <input type="text" id="customDocType" name="customDocType" 
+                               placeholder="Enter custom document type" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fontType" class="form-label">Font Type</label>
+                        <select id="fontType" name="fontType" class="form-select">
+                            <option value="serif">Serif</option>
+                            <option value="sans">Sans-serif</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="textAlignment" class="form-label">Text Alignment</label>
+                        <select id="textAlignment" name="textAlignment" class="form-select">
+                            <option value="center">Center</option>
+                            <option value="left">Left</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group checkbox">
+                        <input type="checkbox" id="useUppercase" name="useUppercase" class="form-checkbox" checked>
+                        <label for="useUppercase" class="form-label-inline">Use uppercase formatting</label>
+                    </div>
+
+                    <!-- Download Button -->
+                    <button type="button" id="downloadBtn" class="btn-download">📥 Download PDF</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section">
+            <div class="preview-container">
+                <div class="preview-scroll">
+                    <div id="a4-preview" class="a4-preview">
+                        <!-- Logo -->
+                        <div class="preview-logo"></div>
+
+                        <!-- University Name -->
+                        <div class="preview-university">
+                            <h1>University Name</h1>
+                        </div>
+
+                        <!-- Document Type -->
+                        <div class="preview-doctype">
+                            <h2>ASSIGNMENT</h2>
+                        </div>
+
+                        <!-- Course Info -->
+                        <div class="preview-course">
+                            <p>Course Name</p>
+                            <p>(Course Code)</p>
+                            <p>Assignment Title</p>
+                        </div>
+
+                        <!-- Divider -->
+                        <hr class="preview-divider">
+
+                        <!-- Submitted By -->
+                        <div class="preview-submitted-by">
+                            <p class="preview-section-title">Submitted By:</p>
+                            <p>Student Name</p>
+                            <p>Student ID</p>
+                        </div>
+
+                        <!-- Submitted To -->
+                        <div class="preview-submitted-to">
+                            <p class="preview-section-title">Submitted To:</p>
+                            <p>Professor Instructor Name</p>
+                            <p>Department</p>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="preview-date">
+                            <p>Date</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
 </html>
