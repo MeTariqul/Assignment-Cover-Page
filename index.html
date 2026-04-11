@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gono Bishwabidyalay - Assignment Cover Page Generator</title>
+    <title>GONO BISHWABIDYALAY - Assignment Cover Page Generator</title>
     <style>
         * {
             margin: 0;
@@ -133,6 +133,13 @@
             opacity: 0.7;
         }
 
+        .field-hint {
+            margin-top: 0.55rem;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
         .action-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -200,12 +207,11 @@
             page-break-after: avoid;
             overflow: hidden;
             box-sizing: border-box;
+            transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
         }
 
         .cover-page * {
             color: #000;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .logo-section {
@@ -311,6 +317,1282 @@
             transform: none !important;
         }
 
+        .template-classic {
+            background: white;
+        }
+
+        .template-classic .logo-section,
+        .template-classic .university-name,
+        .template-classic .assignment-title-text,
+        .template-classic .info-section,
+        .template-classic .submission-date-section {
+            text-align: center;
+        }
+
+        .template-modern {
+            background: linear-gradient(180deg, #ffffff 0%, #f4f8fb 100%);
+            padding-top: 88px;
+        }
+
+        .template-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 18px;
+            background: linear-gradient(90deg, #0b4f6c, #2f88c5);
+        }
+
+        .template-modern .logo-section {
+            align-self: flex-start;
+            margin-bottom: 22px;
+        }
+
+        .template-modern .logo-section img {
+            height: 92px;
+        }
+
+        .template-modern .university-name {
+            width: 100%;
+            margin-bottom: 24px;
+            font-size: 38px;
+            text-align: left;
+            letter-spacing: 1px;
+        }
+
+        .template-modern .assignment-title-text {
+            align-self: flex-start;
+            margin-bottom: 32px;
+            padding: 16px 24px;
+            border-radius: 999px;
+            background: #0b4f6c;
+            color: white;
+        }
+
+        .template-modern .details-section {
+            border: 1px solid #d7e3ec;
+            border-left: 8px solid #0b4f6c;
+            border-radius: 20px;
+            background: white;
+            padding: 24px 28px;
+            margin-bottom: 34px;
+            box-shadow: 0 16px 30px rgba(11, 79, 108, 0.08);
+            text-align: left;
+        }
+
+        .template-modern .detail-item,
+        .template-modern .info-section h4,
+        .template-modern .info-section p {
+            text-align: left;
+        }
+
+        .template-modern .info-section {
+            width: 100%;
+            margin-bottom: 22px;
+            padding: 24px 28px;
+            border: 1px solid #dbe5ec;
+            border-radius: 18px;
+            background: white;
+            box-shadow: 0 10px 24px rgba(11, 79, 108, 0.07);
+            text-align: left;
+        }
+
+        .template-modern .info-section h4 {
+            color: #0b4f6c;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            font-size: 16px;
+        }
+
+        .template-modern .submission-date-section {
+            border-top: 2px solid #0b4f6c;
+            text-align: right;
+        }
+
+        .template-modern .submission-date-section p {
+            color: #0b4f6c;
+        }
+
+        .template-framed {
+            border: 2px solid #1f1f1f;
+            padding: 92px 72px 64px;
+        }
+
+        .template-framed::before {
+            content: '';
+            position: absolute;
+            inset: 22px;
+            border: 1px solid #1f1f1f;
+            pointer-events: none;
+        }
+
+        .template-framed .logo-section,
+        .template-framed .university-name,
+        .template-framed .assignment-title-text,
+        .template-framed .info-section,
+        .template-framed .submission-date-section {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .template-framed .logo-section img {
+            height: 86px;
+        }
+
+        .template-framed .university-name,
+        .template-framed .assignment-title-text,
+        .template-framed .info-section h4 {
+            font-family: 'Times New Roman', Georgia, serif;
+        }
+
+        .template-framed .university-name {
+            margin-bottom: 30px;
+            font-size: 40px;
+            letter-spacing: 1.5px;
+        }
+
+        .template-framed .assignment-title-text {
+            margin-bottom: 42px;
+            padding: 14px 34px;
+            border: 1px solid #1f1f1f;
+            background: #faf7f1;
+        }
+
+        .template-framed .details-section {
+            margin-bottom: 50px;
+            padding: 20px 0;
+            border-top-width: 2px;
+            border-bottom-width: 2px;
+        }
+
+        .template-framed .detail-item {
+            font-size: 20px;
+        }
+
+        .template-framed .info-section {
+            margin-bottom: 30px;
+        }
+
+        .template-framed .submission-date-section {
+            border-top: 1px solid #1f1f1f;
+        }
+
+        .template-elegant {
+            background: #fffdf7;
+            padding: 88px 68px 56px;
+        }
+
+        .template-elegant::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at top right, rgba(138, 90, 54, 0.08), transparent 33%),
+                radial-gradient(circle at bottom left, rgba(63, 90, 130, 0.08), transparent 28%);
+            pointer-events: none;
+        }
+
+        .template-elegant > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .template-elegant .logo-section img {
+            height: 98px;
+        }
+
+        .template-elegant .university-name,
+        .template-elegant .assignment-title-text {
+            font-family: Georgia, 'Times New Roman', serif;
+            color: #5b3a29;
+        }
+
+        .template-elegant .university-name {
+            margin-bottom: 34px;
+            font-size: 38px;
+        }
+
+        .template-elegant .assignment-title-text {
+            margin-bottom: 42px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #c6a27a;
+            color: #8a5a36;
+        }
+
+        .template-elegant .details-section {
+            border: none;
+            border-left: 4px solid #8a5a36;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.84);
+            padding: 22px 26px;
+            text-align: left;
+        }
+
+        .template-elegant .detail-item {
+            text-align: left;
+            color: #3f352f;
+        }
+
+        .template-elegant .info-section {
+            width: 100%;
+            padding: 22px 24px;
+            margin-bottom: 22px;
+            border: 1px solid #ead7bf;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.84);
+        }
+
+        .template-elegant .info-section h4 {
+            text-align: left;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            font-size: 15px;
+            color: #8a5a36;
+        }
+
+        .template-elegant .info-section p {
+            text-align: left;
+            color: #3f352f;
+        }
+
+        .template-elegant .submission-date-section {
+            border-top: 1px solid #c6a27a;
+            text-align: right;
+        }
+
+        .template-elegant .submission-date-section p {
+            color: #6c5242;
+        }
+
+        .template-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas:
+                'logo logo'
+                'university university'
+                'title title'
+                'details details'
+                'to by'
+                'date date';
+            column-gap: 30px;
+            row-gap: 0;
+            align-items: start;
+            background: white;
+        }
+
+        .template-split .logo-section {
+            grid-area: logo;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .template-split .logo-section img {
+            height: 90px;
+        }
+
+        .template-split .university-name {
+            grid-area: university;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 26px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #1a1a1a;
+            font-size: 34px;
+        }
+
+        .template-split .assignment-title-text {
+            grid-area: title;
+            justify-self: start;
+            margin-bottom: 34px;
+            padding: 14px 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .template-split .details-section {
+            grid-area: details;
+            margin-bottom: 34px;
+            border: 1px solid #1a1a1a;
+            background: #f5f5f5;
+        }
+
+        .template-split .submitted-to,
+        .template-split .submitted-by {
+            width: 100%;
+            margin-bottom: 0;
+            text-align: left;
+        }
+
+        .template-split .submitted-to {
+            grid-area: to;
+            padding-right: 20px;
+            border-right: 1px solid #1a1a1a;
+        }
+
+        .template-split .submitted-by {
+            grid-area: by;
+            padding-left: 20px;
+        }
+
+        .template-split .info-section h4,
+        .template-split .info-section p {
+            text-align: left;
+        }
+
+        .template-split .info-section h4 {
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+            letter-spacing: 1.3px;
+        }
+
+.template-split .submission-date-section {
+            grid-area: date;
+            margin-top: 46px;
+            text-align: right;
+        }
+
+        /* Template 6: Sunrise Bloom */
+        .template-sunrise {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-sunrise::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 182, 193, 0.4) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 218, 185, 0.4) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .template-sunrise > * { position: relative; z-index: 1; }
+
+        .template-sunrise .logo-section img { height: 98px; }
+
+        .template-sunrise .university-name {
+            font-size: 40px;
+            color: #d35400;
+            font-family: Georgia, serif;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .template-sunrise .assignment-title-text {
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+        }
+
+        .template-sunrise .details-section {
+            border-color: #f39c12;
+            background: rgba(255,255,255,0.85);
+            border-radius: 16px;
+        }
+
+        .template-sunrise .info-section {
+            background: rgba(255,255,255,0.85);
+            border-radius: 16px;
+            border: none;
+        }
+
+        .template-sunrise .info-section h4 { color: #d35400; }
+
+        .template-sunrise .submission-date-section {
+            border-top: 2px solid #e74c3c;
+        }
+
+        /* Template 7: Emerald Crest */
+        .template-emerald {
+            background: linear-gradient(160deg, #134e5e 0%, #71b280 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-emerald::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .template-emerald > * { position: relative; z-index: 1; }
+
+        .template-emerald .logo-section img { height: 98px; }
+
+        .template-emerald .university-name,
+        .template-emerald .assignment-title-text,
+        .template-emerald .info-section h4 {
+            color: white;
+        }
+
+        .template-emerald .university-name {
+            font-size: 38px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .template-emerald .assignment-title-text {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            border-radius: 8px;
+            padding: 14px 28px;
+        }
+
+        .template-emerald .details-section {
+            border-color: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.15);
+            border-radius: 16px;
+        }
+
+        .template-emerald .detail-item { color: white; }
+
+        .template-emerald .info-section {
+            background: rgba(255,255,255,0.15);
+            border-radius: 16px;
+            border: none;
+        }
+
+        .template-emerald .info-section p { color: white; }
+
+        .template-emerald .submission-date-section {
+            border-top: 2px solid rgba(255,255,255,0.5);
+        }
+
+        .template-emerald .submission-date-section p { color: white; }
+
+        /* Template 8: Coral Wave */
+        .template-coral {
+            background: linear-gradient(180deg, #ff9966 0%, #ff5e62 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-coral::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            pointer-events: none;
+        }
+
+        .template-coral > * { position: relative; z-index: 1; }
+
+        .template-coral .logo-section img { height: 98px; }
+
+        .template-coral .university-name {
+            color: white;
+            font-size: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .template-coral .assignment-title-text {
+            background: white;
+            color: #ff5e62;
+            padding: 16px 32px;
+            border-radius: 4px;
+            font-weight: 800;
+        }
+
+        .template-coral .details-section {
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            border: none;
+        }
+
+        .template-coral .info-section {
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            border: none;
+        }
+
+        .template-coral .info-section h4 { color: #ff5e62; }
+
+        .template-coral .submission-date-section p { color: white; }
+
+        /* Template 9: Royal Luxe */
+        .template-royal {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-royal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 8px solid #e94560;
+            pointer-events: none;
+            box-sizing: border-box;
+        }
+
+        .template-royal::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, transparent 50%, rgba(233, 69, 96, 0.2) 50%);
+            pointer-events: none;
+        }
+
+        .template-royal > * { position: relative; z-index: 1; }
+
+        .template-royal .logo-section img { height: 98px; }
+
+        .template-royal .university-name {
+            font-size: 38px;
+            color: #e94560;
+            font-family: 'Playfair Display', Georgia, serif;
+            letter-spacing: 3px;
+        }
+
+        .template-royal .assignment-title-text {
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            font-size: 36px;
+        }
+
+        .template-royal .details-section {
+            border-color: #e94560;
+            background: rgba(26, 26, 46, 0.9);
+            border-radius: 4px;
+        }
+
+        .template-royal .detail-item { color: #eaeaea; }
+
+        .template-royal .info-section {
+            background: rgba(26, 26, 46, 0.9);
+            border: 1px solid #e94560;
+            border-radius: 4px;
+        }
+
+        .template-royal .info-section h4 {
+            color: #e94560;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .template-royal .info-section p { color: #eaeaea; }
+
+        .template-royal .submission-date-section {
+            border-top-color: #e94560;
+        }
+
+        .template-royal .submission-date-section p { color: #ffd700; }
+
+        /* Template 10: Aurora Glow */
+        .template-aurora {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            padding: 88px 68px 56px;
+            overflow: hidden;
+        }
+
+        .template-aurora::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(120, 200, 255, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 70% 70%, rgba(255, 120, 200, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 50% 50%, rgba(200, 255, 120, 0.1) 0%, transparent 40%);
+            animation: auroraShift 15s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes auroraShift {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .template-aurora > * { position: relative; z-index: 1; }
+
+        .template-aurora .logo-section img { height: 98px; }
+
+        .template-aurora .university-name {
+            font-size: 38px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .template-aurora .assignment-title-text {
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 210, 255, 0.4);
+        }
+
+        .template-aurora .details-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .template-aurora .detail-item { color: white; }
+
+        .template-aurora .info-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .template-aurora .info-section h4 {
+            color: #00d2ff;
+            text-transform: uppercase;
+        }
+
+        .template-aurora .info-section p { color: white; }
+
+        .template-aurora .submission-date-section {
+            border-top: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .template-aurora .submission-date-section p { color: #00d2ff; }
+
+        /* Template 11: Citrus Pop */
+        .template-citrus {
+            background: linear-gradient(45deg, #ffffff 0%, #fff3e0 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-citrus::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle at 100% 0%, rgba(255, 193, 7, 0.4) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .template-citrus::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle at 0% 100%, rgba(76, 175, 80, 0.3) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .template-citrus > * { position: relative; z-index: 1; }
+
+        .template-citrus .logo-section img { height: 98px; }
+
+        .template-citrus .university-name {
+            font-size: 42px;
+            font-weight: 900;
+            color: #ff9800;
+        }
+
+        .template-citrus .assignment-title-text {
+            background: #4caf50;
+            color: white;
+            padding: 16px 32px;
+            font-weight: 800;
+            letter-spacing: 4px;
+        }
+
+        .template-citrus .details-section {
+            background: white;
+            border-radius: 16px;
+            border: 3px solid #ff9800;
+            box-shadow: 4px 4px 0 #4caf50;
+        }
+
+        .template-citrus .info-section {
+            background: white;
+            border-radius: 16px;
+            border-left: 4px solid #ff9800;
+            box-shadow: 4px 4px 0 #4caf50;
+        }
+
+        .template-citrus .info-section h4 {
+            color: #ff9800;
+            text-transform: uppercase;
+        }
+
+        .template-citrus .submission-date-section {
+            border-top: 3px dashed #ff9800;
+        }
+
+        /* Template 12: Ruby Edge */
+        .template-ruby {
+            background: linear-gradient(135deg, #2c0000 0%, #4a0000 50%, #2c0000 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-ruby::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid #ff0040;
+            pointer-events: none;
+            box-shadow: 0 0 20px rgba(255, 0, 64, 0.3), inset 0 0 20px rgba(255, 0, 64, 0.1);
+        }
+
+        .template-ruby::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,0,64,0.03) 10px, rgba(255,0,64,0.03) 20px);
+            pointer-events: none;
+        }
+
+        .template-ruby > * { position: relative; z-index: 1; }
+
+        .template-ruby .logo-section img { height: 98px; }
+
+        .template-ruby .university-name {
+            font-size: 36px;
+            color: #ff0040;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(255, 0, 64, 0.5);
+        }
+
+        .template-ruby .assignment-title-text {
+            background: linear-gradient(90deg, #ff0040, #ff4080);
+            color: white;
+            padding: 14px 28px;
+            font-weight: 900;
+        }
+
+        .template-ruby .details-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 4px;
+        }
+
+        .template-ruby .info-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 4px;
+            border: none;
+        }
+
+        .template-ruby .info-section h4 { color: #ff0040; }
+
+        .template-ruby .submission-date-section {
+            border-top-color: #ff0040;
+        }
+
+        .template-ruby .submission-date-section p { color: #ff0040; }
+
+        /* Template 13: Lagoon Flow */
+        .template-lagoon {
+            background: linear-gradient(180deg, #e0f7fa 0%, #80deea 50%, #26c6da 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-lagoon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 90%, rgba(255,255,255,0.5) 0%, transparent 30%),
+                        radial-gradient(circle at 90% 10%, rgba(255,255,255,0.5) 0%, transparent 30%);
+            pointer-events: none;
+        }
+
+        .template-lagoon > * { position: relative; z-index: 1; }
+
+        .template-lagoon .logo-section img { height: 98px; }
+
+        .template-lagoon .university-name {
+            font-size: 40px;
+            color: #006064;
+            font-weight: 700;
+        }
+
+        .template-lagoon .assignment-title-text {
+            background: white;
+            color: #00838f;
+            padding: 16px 32px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 131, 143, 0.2);
+        }
+
+        .template-lagoon .details-section {
+            background: white;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0, 131, 143, 0.15);
+        }
+
+        .template-lagoon .info-section {
+            background: white;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0, 131, 143, 0.15);
+        }
+
+        .template-lagoon .info-section h4 {
+            color: #00838f;
+            text-transform: uppercase;
+        }
+
+        .template-lagoon .submission-date-section {
+            border-top-color: #00838f;
+        }
+
+        .template-lagoon .submission-date-section p { color: #00838f; }
+
+        /* Template 14: Solar Flare */
+        .template-solar {
+            background: linear-gradient(135deg, #ff8a00 0%, #da1b60 50%, #8e1c91 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-solar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            animation: solarPulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes solarPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
+        .template-solar > * { position: relative; z-index: 1; }
+
+        .template-solar .logo-section img { height: 98px; }
+
+        .template-solar .university-name {
+            font-size: 42px;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .template-solar .assignment-title-text {
+            background: rgba(255,255,255,0.95);
+            color: #da1b60;
+            padding: 16px 32px;
+            font-weight: 900;
+            font-size: 28px;
+        }
+
+        .template-solar .details-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+        }
+
+        .template-solar .info-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+        }
+
+        .template-solar .info-section h4 { color: #da1b60; }
+
+        .template-solar .submission-date-section p { color: white; }
+
+        /* Template 15: Rose Garden */
+        .template-rose {
+            background: linear-gradient(135deg, #f8bbd9 0%, #f48fb1 50%, #f06292 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-rose::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='2' fill='%23ffffff' fill-opacity='0.3'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .template-rose > * { position: relative; z-index: 1; }
+
+        .template-rose .logo-section img { height: 98px; }
+
+        .template-rose .university-name {
+            font-size: 40px;
+            color: #880e4f;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 44px;
+        }
+
+        .template-rose .assignment-title-text {
+            background: white;
+            color: #ad1457;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-family: 'Georgia', serif;
+        }
+
+        .template-rose .details-section {
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            border: none;
+        }
+
+        .template-rose .info-section {
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            border: none;
+        }
+
+        .template-rose .info-section h4 { color: #ad1457; }
+
+        .template-rose .submission-date-section {
+            border-top-color: #880e4f;
+        }
+
+        .template-rose .submission-date-section p { color: #880e4f; }
+
+        /* Template 16: Midnight Neon */
+        .template-midnight {
+            background: linear-gradient(180deg, #0d0d0d 0%, #1a1a2e 50%, #162447 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-midnight::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00fff5, #ff00ff, transparent);
+            box-shadow: 0 0 20px #00fff5, 0 0 40px #ff00ff;
+            pointer-events: none;
+        }
+
+        .template-midnight::after {
+            content: '';
+            position: absolute;
+            bottom: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff00ff, #00fff5, transparent);
+            box-shadow: 0 0 20px #ff00ff, 0 0 40px #00fff5;
+            pointer-events: none;
+        }
+
+        .template-midnight > * { position: relative; z-index: 1; }
+
+        .template-midnight .logo-section img { height: 98px; }
+
+        .template-midnight .university-name {
+            font-size: 38px;
+            background: linear-gradient(90deg, #00fff5, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .template-midnight .assignment-title-text {
+            color: #00fff5;
+            border: 2px solid #00fff5;
+            padding: 14px 28px;
+            box-shadow: 0 0 15px rgba(0, 255, 245, 0.5);
+            text-shadow: 0 0 10px #00fff5;
+        }
+
+        .template-midnight .details-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 255, 245, 0.3);
+        }
+
+        .template-midnight .detail-item { color: #e0e0e0; }
+
+        .template-midnight .info-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+        }
+
+        .template-midnight .info-section h4 { color: #ff00ff; }
+
+        .template-midnight .info-section p { color: #e0e0e0; }
+
+        .template-midnight .submission-date-section {
+            border-top: 1px solid rgba(0, 255, 245, 0.5);
+        }
+
+        .template-midnight .submission-date-section p {
+            color: #00fff5;
+            text-shadow: 0 0 10px #00fff5;
+        }
+
+        /* Template 17: Tropical Burst */
+        .template-tropical {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 50%, #ffd700 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-tropical::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.4) 0%, transparent 40%),
+                        radial-gradient(circle at 20% 80%, rgba(255,215,0,0.3) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .template-tropical > * { position: relative; z-index: 1; }
+
+        .template-tropical .logo-section img { height: 98px; }
+
+        .template-tropical .university-name {
+            font-size: 42px;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .template-tropical .assignment-title-text {
+            background: #ff6b6b;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 800;
+        }
+
+        .template-tropical .details-section {
+            background: white;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .template-tropical .info-section {
+            background: white;
+            border-radius: 20px;
+            border: none;
+        }
+
+        .template-tropical .info-section h4 { color: #56ab2f; }
+
+        .template-tropical .submission-date-section p { color: white; }
+
+        /* Template 18: Peach Mist */
+        .template-peach {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #e17055 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-peach::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            filter: blur(40px);
+            pointer-events: none;
+        }
+
+        .template-peach > * { position: relative; z-index: 1; }
+
+        .template-peach .logo-section img { height: 98px; }
+
+        .template-peach .university-name {
+            font-size: 40px;
+            color: #2d3436;
+        }
+
+        .template-peach .assignment-title-text {
+            background: white;
+            color: #e17055;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+        }
+
+        .template-peach .details-section {
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            border: none;
+        }
+
+        .template-peach .info-section {
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            border: none;
+        }
+
+        .template-peach .info-section h4 { color: #e17055; }
+
+        .template-peach .submission-date-section {
+            border-top-color: #e17055;
+        }
+
+        /* Template 19: Oceanic Drive */
+        .template-oceanic {
+            background: linear-gradient(200deg, #021b79 0%, #0575e6 50%, #021b79 100%);
+            padding: 88px 68px 56px;
+        }
+
+        .template-oceanic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.05) 100%);
+            pointer-events: none;
+        }
+
+        .template-oceanic > * { position: relative; z-index: 1; }
+
+        .template-oceanic .logo-section img { height: 98px; }
+
+        .template-oceanic .university-name {
+            font-size: 38px;
+            color: #00d4ff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+
+        .template-oceanic .assignment-title-text {
+            background: linear-gradient(90deg, #00d4ff, #00a8ff);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 4px;
+        }
+
+        .template-oceanic .details-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .template-oceanic .detail-item { color: white; }
+
+        .template-oceanic .info-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .template-oceanic .info-section h4 {
+            color: #00d4ff;
+            text-transform: uppercase;
+        }
+
+        .template-oceanic .info-section p { color: white; }
+
+        .template-oceanic .submission-date-section {
+            border-top: 1px solid rgba(0, 212, 255, 0.5);
+        }
+
+        .template-oceanic .submission-date-section p { color: #00d4ff; }
+
+        /* Template 20: Festival Bright */
+        .template-festival {
+            background: repeating-linear-gradient(45deg, #ff6b6b, #ff6b6b 20px, #ee5a5a 20px, #ee5a5a 40px);
+            padding: 88px 68px 56px;
+        }
+
+        .template-festival::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%, rgba(255,255,255,0.3) 100%);
+            pointer-events: none;
+        }
+
+        .template-festival > * { position: relative; z-index: 1; }
+
+        .template-festival .logo-section img { height: 98px; }
+
+        .template-festival .university-name {
+            font-size: 42px;
+            color: white;
+            text-shadow: 3px 3px 0 #2d3436;
+            font-weight: 900;
+        }
+
+        .template-festival .assignment-title-text {
+            background: #00d2ff;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 28px;
+            box-shadow: 4px 4px 0 #2d3436;
+        }
+
+        .template-festival .details-section {
+            background: white;
+            border-radius: 16px;
+            border: 3px solid #2d3436;
+            box-shadow: 4px 4px 0 #2d3436;
+        }
+
+        .template-festival .info-section {
+            background: white;
+            border-radius: 16px;
+            border: 3px solid #2d3436;
+            box-shadow: 4px 4px 0 #2d3436;
+        }
+
+        .template-festival .info-section h4 {
+            color: #ff6b6b;
+            text-transform: uppercase;
+        }
+
+        .template-festival .submission-date-section {
+            border-top: 3px solid #2d3436;
+        }
+
+        .template-festival .submission-date-section p {
+            color: white;
+            text-shadow: 1px 1px 0 #2d3436;
+        }
+
         @media (max-width: 1024px) {
             .app-container {
                 grid-template-columns: 1fr;
@@ -399,7 +1681,7 @@
 <body>
     <header class="header">
         <h1>📋 Assignment Cover Page Generator</h1>
-        <p>Gono Bishwabidyalay</p>
+        <p>GONO BISHWABIDYALAY</p>
         <div id="libraryStatus" style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
             Loading libraries...
         </div>
@@ -408,6 +1690,36 @@
     <div class="app-container">
         <div class="form-panel">
             <form id="coverForm">
+                <div class="form-section">
+                    <h3>Design Template</h3>
+                    <div class="form-group">
+                        <label>Cover Page Style</label>
+                        <select id="designTemplate">
+                            <option value="classic">Classic Centered</option>
+                            <option value="modern">Modern Accent</option>
+                            <option value="framed">Formal Framed</option>
+                            <option value="elegant">Elegant Serif</option>
+                            <option value="split">Split Layout</option>
+                            <option value="sunrise">Sunrise Bloom</option>
+                            <option value="emerald">Emerald Crest</option>
+                            <option value="coral">Coral Wave</option>
+                            <option value="royal">Royal Luxe</option>
+                            <option value="aurora">Aurora Glow</option>
+                            <option value="citrus">Citrus Pop</option>
+                            <option value="ruby">Ruby Edge</option>
+                            <option value="lagoon">Lagoon Flow</option>
+                            <option value="solar">Solar Flare</option>
+                            <option value="rose">Rose Garden</option>
+                            <option value="midnight">Midnight Neon</option>
+                            <option value="tropical">Tropical Burst</option>
+                            <option value="peach">Peach Mist</option>
+                            <option value="oceanic">Ocean Drive</option>
+                            <option value="festival">Festival Bright</option>
+                        </select>
+                        <p class="field-hint">Choose from 20 styles. The selected design is used for preview, PDF, and image export.</p>
+                    </div>
+                </div>
+
                 <div class="form-section">
                     <h3>📘 Assignment Information</h3>
                     <div class="form-group">
@@ -498,9 +1810,9 @@
 
         <div class="preview-panel">
             <div class="preview-scroll">
-                <div class="cover-page" id="coverPage">
+                <div class="cover-page template-classic" id="coverPage">
                     <div class="logo-section">
-                        <img src="logo.jpg" alt="Gono Bishwabidyalay Logo" crossorigin="anonymous">
+                        <img src="logo.jpg" alt="GONO BISHWABIDYALAY Logo" crossorigin="anonymous">
                     </div>
 
                     <div class="university-name">GONO BISHWABIDYALAY</div>
@@ -513,14 +1825,14 @@
                         <div class="detail-item" id="previewCourseCode">Course Code</div>
                     </div>
 
-                    <div class="info-section">
+                    <div class="info-section submitted-to">
                         <h4>Submitted To:</h4>
                         <p><strong id="previewTeacherName">Teacher Name</strong></p>
                         <p id="previewDesignation">Designation</p>
                         <p id="previewTeacherDept">Department</p>
                     </div>
 
-                    <div class="info-section">
+                    <div class="info-section submitted-by">
                         <h4>Submitted By:</h4>
                         <p><strong id="previewStudentName">Student Name</strong></p>
                         <p id="previewStudentID">ID: 00000000</p>
@@ -539,7 +1851,7 @@
 
     <!-- Footer with GitHub Credit -->
     <footer class="footer">
-        <p><span class="footer-icon">🔗</span>Created for <strong>Gono Bishwabidyalay</strong> | 
+        <p><span class="footer-icon">🔗</span>Created for <strong>GONO BISHWABIDYALAY</strong> | 
         <a href="https://github.com/MeTariqul/Assignment-Cover-Page" target="_blank" rel="noopener noreferrer">📂 GitHub Repository</a></p>
     </footer>
 
@@ -612,8 +1924,31 @@
         const PDF_BUTTON_TEXT = 'Download PDF';
         const IMAGE_BUTTON_TEXT = 'Download Image';
         const STORAGE_KEY = 'gonoCoverPageData';
+        const DESIGN_TEMPLATES = [
+            'classic',
+            'modern',
+            'framed',
+            'elegant',
+            'split',
+            'sunrise',
+            'emerald',
+            'coral',
+            'royal',
+            'aurora',
+            'citrus',
+            'ruby',
+            'lagoon',
+            'solar',
+            'rose',
+            'midnight',
+            'tropical',
+            'peach',
+            'oceanic',
+            'festival'
+        ];
 
         const state = {
+            designTemplate: 'classic',
             assignmentTitle: '',
             courseTitle: '',
             courseCode: '',
@@ -642,6 +1977,7 @@
                     const data = JSON.parse(saved);
                     // Merge saved data with defaults (keeping any pre-defined defaults)
                     Object.assign(state, {
+                        designTemplate: normalizeDesignTemplate(data.designTemplate),
                         assignmentTitle: data.assignmentTitle || '',
                         courseTitle: data.courseTitle || '',
                         courseCode: data.courseCode || '',
@@ -667,6 +2003,7 @@
         }
 
         function syncFormToUI() {
+            document.getElementById('designTemplate').value = normalizeDesignTemplate(state.designTemplate);
             document.getElementById('assignmentTitle').value = state.assignmentTitle;
             document.getElementById('courseTitle').value = state.courseTitle;
             document.getElementById('courseCode').value = state.courseCode;
@@ -690,6 +2027,10 @@
         }
 
         function updatePreview() {
+            const coverPage = document.getElementById('coverPage');
+            state.designTemplate = normalizeDesignTemplate(state.designTemplate);
+            coverPage.className = `cover-page template-${state.designTemplate}`;
+
             document.getElementById('previewAssignmentTitle').textContent = state.assignmentTitle || 'Assignment Title';
             document.getElementById('previewCourseTitle').textContent = state.courseTitle || 'Course Title';
             document.getElementById('previewCourseCode').textContent = state.courseCode || 'Course Code';
@@ -719,6 +2060,10 @@
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const year = date.getFullYear();
             return `${day}/${month}/${year}`;
+        }
+
+        function normalizeDesignTemplate(value) {
+            return DESIGN_TEMPLATES.includes(value) ? value : 'classic';
         }
 
         function setButtonState(button, label, disabled) {
