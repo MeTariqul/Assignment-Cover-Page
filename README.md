@@ -1,73 +1,46 @@
 # Assignment Cover Page Generator
 
-A fully client-side web application for generating professional university assignment cover pages as PDF files. Built with React and Vite, it runs entirely in the browser with no backend requirements.
+A fully client-side web application for generating professional university assignment cover pages as PDF or PNG image files. Built as a single HTML file with no dependencies - just open in any browser.
 
 ## ✨ Features
 
 - **📥 Smart Input Form**: Collect student, teacher, and course information
-- **🖼️ Logo Upload**: Add and preview university logo instantly
-- **🎨 Live Preview**: See real-time cover page preview as you type
-- **📄 A4 PDF Export**: Download as professional A4 PDF
+- **🎨 20 Design Templates**: Choose from 20 colorful, professionally designed cover page styles
+- **🖼️ Live Preview**: See real-time cover page preview as you type
+- **📄 PDF Export**: Download as professional A4 PDF
+- **🖼️ Image Export**: Download as high-quality PNG image
 - **🧠 Smart Storage**: Auto-save data to browser localStorage
-- **🎛️ Customization**: Font selection, text alignment, document type
 - **📱 Responsive Design**: Works on all devices
-- **⚡ Offline Ready**: Works without internet after loading
+- **⚡ Offline Ready**: Works without internet after initial load
 
 ## 🚀 Quick Start
 
-```bash
-npm install
-npm run dev
-```
+Simply open `index.html` in your web browser. No installation required!
 
-Open http://localhost:5173 in your browser.
+## 📦 Templates
 
-## 📦 Tech Stack
+Choose from 20 beautiful design templates:
 
-- React 18
-- Vite
-- Tailwind CSS
-- html2pdf.js
-- html2canvas
-
-## 🏗️ Project Structure
-
-```
-src/
-├── components/
-│   ├── Form.jsx
-│   ├── Preview.jsx
-│   └── PDFButton.jsx
-├── hooks/
-│   └── useLocalStorage.js
-├── utils/
-│   └── generatePDF.js
-├── App.jsx
-├── main.jsx
-└── index.css
-```
-
-## ✅ Bugs Fixed
-
-✓ Removed unused `useEffect` import from App.jsx
-✓ Removed unused `useRef` import from Preview.jsx
-✓ Fixed logo removal button to properly update form data
-✓ Changed `console.log` to `console.error` in useLocalStorage
-✓ Replaced alert() with console.error for better error handling
-✓ Updated package.json with correct GitHub repo URL
-✓ Added ESLint configuration
-✓ Added Prettier configuration
-✓ Added lint scripts to package.json
-
-## 🚀 Deployment
-
-To deploy to GitHub Pages:
-
-```bash
-npm run build
-```
-
-Then push the `dist` folder to GitHub Pages or set up GitHub Actions.
+1. **Classic Centered** - Clean white design
+2. **Modern Accent** - Blue gradient with accent bars
+3. **Formal Framed** - Black bordered frame
+4. **Elegant Serif** - Warm cream with serif fonts
+5. **Split Layout** - Two-column grid layout
+6. **Sunrise Bloom** - Warm orange/peach gradient
+7. **Emerald Crest** - Deep green with pattern overlay
+8. **Coral Wave** - Vibrant orange/red gradient
+9. **Royal Luxe** - Dark navy with gold/crimson
+10. **Aurora Glow** - Purple/blue with animated aurora
+11. **Citrus Pop** - Bright yellow/green
+12. **Ruby Edge** - Deep red with glowing borders
+13. **Lagoon Flow** - Turquoise gradient
+14. **Solar Flare** - Multi-color with pulsing effect
+15. **Rose Garden** - Pink gradient with floral pattern
+16. **Midnight Neon** - Dark with neon cyan/magenta
+17. **Tropical Burst** - Green/yellow with vibrant accents
+18. **Peach Mist** - Soft peach/coral gradient
+19. **Oceanic Drive** - Deep blue with cyan neon glow
+20. **Festival Bright** - Bold red stripes
 
 ## 📝 License
 
