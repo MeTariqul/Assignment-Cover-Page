@@ -20,6 +20,17 @@
             --focus: #0066cc;
             --a4-width: 794px;
             --a4-height: 1123px;
+            --accent-gold: #ffd700;
+            --accent-gold-light: #ffe34d;
+            --accent-gold-dark: #e6c200;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-soft: 0 4px 24px rgba(0,0,0,0.08);
+            --shadow-medium: 0 8px 32px rgba(0,0,0,0.12);
+            --shadow-strong: 0 16px 48px rgba(0,0,0,0.16);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
         }
 
         @page {
@@ -33,26 +44,79 @@
             font-family: 'Segoe UI', 'Calibri', 'Arial', sans-serif;
             background-color: var(--bg-light);
             color: var(--text-primary);
+            scroll-behavior: smooth;
+        }
+
+        * {
+            transition: var(--transition-smooth);
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--accent-gold);
+            outline-offset: 2px;
         }
 
         .header {
-            background-color: var(--primary-dark);
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             color: white;
-            padding: 1.5rem;
+            padding: 1.5rem 2rem;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-bottom: 3px solid var(--accent-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,215,0,0.12) 0%, transparent 40%),
+                        radial-gradient(circle at 70% 70%, rgba(0,102,204,0.08) 0%, transparent 40%);
+            animation: headerGlow 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes headerGlow {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-5%, -5%); }
         }
 
         .header h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
+            font-size: 2.6rem;
+            font-weight: 800;
             margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
         }
 
         .header p {
-            font-size: 1rem;
-            opacity: 0.9;
-            font-weight: 300;
+            font-size: 1.15rem;
+            opacity: 0.95;
+            font-weight: 500;
+            color: var(--accent-gold);
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 1;
+        }
+
+        #libraryStatus {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            margin-top: 0.75rem;
+            padding: 0.4rem 1rem;
+            background: rgba(255,215,0,0.15);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent-gold-light);
+            border: 1px solid rgba(255,215,0,0.3);
+            backdrop-filter: blur(10px);
         }
 
         .app-container {
@@ -67,17 +131,32 @@
 
         .form-panel {
             background: white;
-            border-radius: 8px;
+            border-radius: var(--radius-lg);
             padding: 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow-soft), 0 1px 3px rgba(0,0,0,0.04);
             overflow-y: auto;
             max-height: calc(100vh - 160px);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .form-section {
             margin-bottom: 2rem;
             padding-bottom: 2rem;
             border-bottom: 1px solid var(--border);
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .form-section::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--accent-gold), var(--accent-gold-dark));
+            border-radius: 2px;
+            opacity: 0.7;
         }
 
         .form-section:last-child {
@@ -86,11 +165,19 @@
             padding-bottom: 0;
         }
 
+        .form-section:last-child::before {
+            bottom: auto;
+            height: 20px;
+        }
+
         .form-section h3 {
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 1rem;
             color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .form-group {
@@ -115,17 +202,25 @@
             width: 100%;
             padding: 0.75rem;
             border: 1px solid var(--border);
-            border-radius: 4px;
+            border-radius: var(--radius-sm);
             font-size: 0.95rem;
             font-family: inherit;
-            transition: all 0.2s;
+            background: #fafafa;
+            transition: var(--transition-smooth);
+        }
+
+        .form-group input:hover,
+        .form-group select:hover {
+            border-color: #bbb;
+            background: #fff;
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: var(--focus);
-            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(255,215,0,0.15);
+            background: #fff;
         }
 
         .form-group input::placeholder {
@@ -138,6 +233,7 @@
             font-size: 0.82rem;
             line-height: 1.5;
             color: var(--text-secondary);
+            font-style: italic;
         }
 
         .action-buttons {
@@ -155,34 +251,68 @@
         .btn {
             padding: 0.85rem 1.5rem;
             border: none;
-            border-radius: 4px;
+            border-radius: var(--radius-sm);
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition-smooth);
             font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primary {
-            background-color: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #333 100%);
             color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .btn-primary:hover {
-            background-color: #333;
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, #2d2d2d 0%, #444 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .preview-panel {
-            background: white;
-            border-radius: 8px;
+            background: linear-gradient(145deg, #fafafa, #f0f0f0);
+            border-radius: var(--radius-lg);
             padding: 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow-soft), inset 0 2px 4px rgba(0,0,0,0.03);
             display: flex;
             flex-direction: column;
             align-items: center;
             overflow-y: auto;
             max-height: calc(100vh - 160px);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .preview-scroll {
@@ -191,23 +321,84 @@
             justify-content: center;
             align-items: flex-start;
             padding-bottom: 1rem;
+            position: relative;
+        }
+
+        .preview-scroll::before {
+            content: '';
+            position: sticky;
+            top: 0;
+            display: block;
+            height: 30px;
+            background: linear-gradient(to bottom, rgba(245,245,245,0.95), transparent);
+            margin-bottom: -30px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .preview-scroll::after {
+            content: '';
+            position: sticky;
+            bottom: 0;
+            display: block;
+            height: 30px;
+            background: linear-gradient(to top, rgba(245,245,245,0.95), transparent);
+            margin-top: -30px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .preview-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .preview-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
         }
 
         .cover-page {
             width: var(--a4-width);
             min-height: var(--a4-height);
-            background: white;
-            padding: 72px 56px 48px;
+            background: linear-gradient(145deg, #f8fafc 0%, #e8eaf6 50%, #e2e8f0 100%);
+            padding: 80px 64px 56px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            font-family: 'Calibri', 'Arial', sans-serif;
+            font-family: 'Segoe UI', 'Calibri', 'Arial', 'Helvetica Neue', sans-serif;
             position: relative;
             page-break-after: avoid;
             overflow: hidden;
             box-sizing: border-box;
-            transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-strong), var(--shadow-medium), var(--shadow-soft);
+            transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.3s ease;
         }
 
         .cover-page * {
@@ -221,39 +412,59 @@
 
         .logo-section img {
             display: block;
-            height: 112px;
+            height: 120px;
             width: auto;
             max-width: 100%;
             object-fit: contain;
             margin-left: auto;
             margin-right: auto;
+            background: transparent !important;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            border-radius: 20px;
+            padding: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .logo-section img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.16);
         }
 
         .university-name {
-            font-size: 36px;
-            font-weight: bold;
+            font-size: 42px;
+            font-weight: 900;
             text-align: center;
-            margin-bottom: 42px;
-            letter-spacing: 0.8px;
+            margin-bottom: 48px;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            color: #1a1a1a;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .assignment-title-text {
-            font-size: 32px;
-            font-weight: bold;
+            font-size: 34px;
+            font-weight: 800;
             text-align: center;
-            margin-bottom: 54px;
-            letter-spacing: 1.5px;
+            margin-bottom: 60px;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            color: #414345;
+            background: linear-gradient(135deg, #ffd700 0%, #ffb700 50%, #ffd700 100%);
+            border-radius: 12px;
+            padding: 18px 36px;
+            box-shadow: 0 4px 20px rgba(255,215,0,0.15), 0 2px 8px rgba(0,0,0,0.08);
+            border: 2px solid rgba(255,215,0,0.3);
         }
 
         .details-section {
             text-align: center;
             width: 100%;
             margin-bottom: 54px;
-            padding: 18px 10px;
-            border-top: 1px solid #000;
-            border-bottom: 1px solid #000;
+            padding: 20px 12px;
+            border-top: 2px solid #1a1a1a;
+            border-bottom: 2px solid #1a1a1a;
+            background: rgba(255,255,255,0.6);
+            border-radius: 4px;
         }
 
         .detail-item {
@@ -265,40 +476,138 @@
         .info-section {
             margin-bottom: 36px;
             text-align: center;
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         }
 
         .info-section h4 {
             font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 12px;
+            font-weight: 700;
+            margin-bottom: 14px;
             margin-left: auto;
             margin-right: auto;
             text-decoration: underline;
-            letter-spacing: 0.2px;
+            text-decoration-thickness: 2px;
+            letter-spacing: 0.5px;
+            color: #1a1a1a;
         }
 
         .info-section p {
             font-size: 18px;
             margin: 0 auto;
-            line-height: 1.5;
+            line-height: 1.6;
+            color: #333;
         }
 
         .info-section strong {
             font-weight: 700;
+            color: #1a1a1a;
         }
 
         .submission-date-section {
-            text-align: center;
+            text-align: left;
             width: 100%;
             margin-top: auto;
-            padding-top: 18px;
-            border-top: 1px solid #000;
+            padding-top: 16px;
+            border-top: 2px solid #1a1a1a;
+            position: absolute;
+            bottom: 12px;
+            left: 35px;
+            padding-left: 40px;
+            z-index: 10;
         }
 
         .submission-date-section p {
             font-size: 16px;
-            margin: 0 auto;
-            line-height: 1.4;
+            margin: 0;
+            line-height: 1.5;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .qrcode-section {
+            position: absolute;
+            bottom: 12px;
+            right: 35px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .qrcode-section img {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+            background: white;
+            padding: 2px;
+        }
+
+        .qrcode-section p {
+            font-size: 6px;
+            color: #444;
+            margin-top: 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+        }
+
+        .template-classic .qrcode-section,
+        .template-framed .qrcode-section,
+        .template-modern .qrcode-section,
+        .template-elegant .qrcode-section,
+        .template-split .qrcode-section,
+        .template-sunrise .qrcode-section,
+        .template-emerald .qrcode-section,
+        .template-coral .qrcode-section,
+        .template-royal .qrcode-section,
+        .template-aurora .qrcode-section,
+        .template-citrus .qrcode-section,
+        .template-ruby .qrcode-section,
+        .template-lagoon .qrcode-section,
+        .template-solar .qrcode-section,
+        .template-rose .qrcode-section,
+        .template-midnight .qrcode-section,
+        .template-tropical .qrcode-section,
+        .template-peach .qrcode-section,
+        .template-oceanic .qrcode-section,
+.template-festival .qrcode-section {
+            bottom: 12px;
+            right: 35px;
+        }
+
+        .template-split .qrcode-section {
+            grid-area: date;
+            position: static;
+            align-self: end;
+            justify-self: end;
+            margin-left: auto;
+            margin-right: 35px;
+            margin-top: -45px;
+        }
+
+        .template-split .submission-date-section {
+            position: static;
+            grid-area: date;
+            margin: 0;
+            padding: 0;
+            border: none;
+            text-align: left;
+            padding-left: 35px;
+        }
+
+        .template-split .submission-date-section p {
+            font-size: 14px;
+        }
+
+        .template-split .qrcode-section p {
+            font-size: 5px;
+        }
+
+        .template-split .qrcode-section img {
+            width: 40px;
+            height: 40px;
         }
 
         .export-stage {
@@ -319,6 +628,28 @@
 
         .template-classic {
             background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-classic::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 450px;
+            height: 450px;
+            transform: translate(-50%, -50%);
+            background: url('logo.png') no-repeat center center;
+            background-size: contain;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .template-classic > * {
+            position: relative;
+            z-index: 1;
         }
 
         .template-classic .logo-section,
@@ -326,12 +657,14 @@
         .template-classic .assignment-title-text,
         .template-classic .info-section,
         .template-classic .submission-date-section {
-            text-align: center;
+            text-align: left;
+            padding-left: 40px;
         }
 
         .template-modern {
-            background: linear-gradient(180deg, #ffffff 0%, #f4f8fb 100%);
-            padding-top: 88px;
+            background: linear-gradient(180deg, #ffffff 0%, #f0f6fa 100%);
+            padding-top: 72px;
+            position: relative;
         }
 
         .template-modern::before {
@@ -340,44 +673,65 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 18px;
-            background: linear-gradient(90deg, #0b4f6c, #2f88c5);
+            height: 8px;
+            background: linear-gradient(90deg, #0a3d62, #1e5f8a, #3498db);
+        }
+
+        .template-modern::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #0a3d62);
+            opacity: 0.6;
         }
 
         .template-modern .logo-section {
             align-self: flex-start;
-            margin-bottom: 22px;
+            margin-bottom: 20px;
+            padding-left: 4px;
         }
 
         .template-modern .logo-section img {
-            height: 92px;
+            height: 90px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(10, 61, 98, 0.15);
         }
 
         .template-modern .university-name {
             width: 100%;
-            margin-bottom: 24px;
-            font-size: 38px;
+            margin-bottom: 20px;
+            font-size: 36px;
             text-align: left;
             letter-spacing: 1px;
+            color: #0a3d62;
+            font-weight: 700;
+            padding-left: 4px;
+            border-left: 4px solid #3498db;
+            padding-left: 16px;
         }
 
         .template-modern .assignment-title-text {
             align-self: flex-start;
-            margin-bottom: 32px;
-            padding: 16px 24px;
-            border-radius: 999px;
-            background: #0b4f6c;
+            margin-bottom: 28px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #0a3d62 0%, #1e5f8a 100%);
             color: white;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(10, 61, 98, 0.25);
         }
 
         .template-modern .details-section {
-            border: 1px solid #d7e3ec;
-            border-left: 8px solid #0b4f6c;
-            border-radius: 20px;
-            background: white;
-            padding: 24px 28px;
-            margin-bottom: 34px;
-            box-shadow: 0 16px 30px rgba(11, 79, 108, 0.08);
+            border: none;
+            border-left: 6px solid #3498db;
+            border-radius: 0 16px 16px 0;
+            background: linear-gradient(135deg, #f8fbfd 0%, #e8f2f7 100%);
+            padding: 22px 26px;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 24px rgba(10, 61, 98, 0.1);
             text-align: left;
         }
 
@@ -389,30 +743,39 @@
 
         .template-modern .info-section {
             width: 100%;
-            margin-bottom: 22px;
-            padding: 24px 28px;
-            border: 1px solid #dbe5ec;
-            border-radius: 18px;
+            margin-bottom: 20px;
+            padding: 20px 24px;
+            border: none;
+            border-radius: 14px;
             background: white;
-            box-shadow: 0 10px 24px rgba(11, 79, 108, 0.07);
+            box-shadow: 0 8px 20px rgba(10, 61, 98, 0.08);
             text-align: left;
         }
 
         .template-modern .info-section h4 {
-            color: #0b4f6c;
+            color: #0a3d62;
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 1.4px;
-            font-size: 16px;
+            letter-spacing: 1.5px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .template-modern .info-section p {
+            color: #2c3e50;
         }
 
         .template-modern .submission-date-section {
-            border-top: 2px solid #0b4f6c;
-            text-align: right;
+            border-top: 3px solid #3498db;
+            text-align: left;
+            padding-top: 16px;
+            padding-left: 40px;
         }
 
         .template-modern .submission-date-section p {
-            color: #0b4f6c;
+            color: #0a3d62;
+            font-weight: 600;
         }
 
         .template-framed {
@@ -435,7 +798,7 @@
         .template-framed .submission-date-section {
             position: relative;
             z-index: 1;
-            text-align: center;
+            text-align: left;
         }
 
         .template-framed .logo-section img {
@@ -481,8 +844,9 @@
         }
 
         .template-elegant {
-            background: #fffdf7;
-            padding: 88px 68px 56px;
+            background: linear-gradient(145deg, #fdfbf7 0%, #f5f0e6 50%, #ebe5d8 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-elegant::before {
@@ -490,8 +854,21 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(circle at top right, rgba(138, 90, 54, 0.08), transparent 33%),
-                radial-gradient(circle at bottom left, rgba(63, 90, 130, 0.08), transparent 28%);
+                radial-gradient(circle at 10% 10%, rgba(139, 90, 43, 0.12) 0%, transparent 35%),
+                radial-gradient(circle at 90% 90%, rgba(139, 90, 43, 0.08) 0%, transparent 30%),
+                radial-gradient(circle at 90% 10%, rgba(212, 175, 55, 0.1) 0%, transparent 25%);
+            pointer-events: none;
+        }
+
+        .template-elegant::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(139, 90, 43, 0.2);
+            border-radius: 50%;
             pointer-events: none;
         }
 
@@ -501,74 +878,88 @@
         }
 
         .template-elegant .logo-section img {
-            height: 98px;
+            height: 95px;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(92, 60, 30, 0.15);
         }
 
         .template-elegant .university-name,
         .template-elegant .assignment-title-text {
-            font-family: Georgia, 'Times New Roman', serif;
-            color: #5b3a29;
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            color: #4a3222;
         }
 
         .template-elegant .university-name {
-            margin-bottom: 34px;
-            font-size: 38px;
+            margin-bottom: 28px;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: capitalize;
         }
 
         .template-elegant .assignment-title-text {
-            margin-bottom: 42px;
-            padding-bottom: 14px;
-            border-bottom: 2px solid #c6a27a;
-            color: #8a5a36;
+            margin-bottom: 36px;
+            padding: 16px 32px;
+            border-bottom: 3px solid #c9a961;
+            color: #6b4423;
+            background: linear-gradient(135deg, rgba(201, 169, 97, 0.15) 0%, rgba(201, 169, 97, 0.05) 100%);
+            border-radius: 4px 4px 0 0;
         }
 
         .template-elegant .details-section {
             border: none;
-            border-left: 4px solid #8a5a36;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.84);
-            padding: 22px 26px;
+            border-left: 5px solid #8b5a2b;
+            border-radius: 0 14px 14px 0;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px 24px;
             text-align: left;
+            box-shadow: 0 4px 16px rgba(92, 60, 30, 0.08);
         }
 
         .template-elegant .detail-item {
             text-align: left;
-            color: #3f352f;
+            color: #3d2e1f;
+            font-weight: 500;
         }
 
         .template-elegant .info-section {
             width: 100%;
-            padding: 22px 24px;
-            margin-bottom: 22px;
-            border: 1px solid #ead7bf;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.84);
+            padding: 20px 22px;
+            margin-bottom: 20px;
+            border: 1px solid #d4c4a8;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.75);
         }
 
         .template-elegant .info-section h4 {
             text-align: left;
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 1.4px;
-            font-size: 15px;
-            color: #8a5a36;
+            letter-spacing: 1.5px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #8b5a2b;
+            margin-bottom: 8px;
         }
 
         .template-elegant .info-section p {
             text-align: left;
-            color: #3f352f;
+            color: #3d2e1f;
         }
 
         .template-elegant .submission-date-section {
-            border-top: 1px solid #c6a27a;
-            text-align: right;
+            border-top: 2px solid #c9a961;
+            text-align: left;
+            padding-top: 14px;
+            padding-left: 40px;
         }
 
         .template-elegant .submission-date-section p {
-            color: #6c5242;
+            color: #6b4423;
+            font-weight: 600;
         }
 
-        .template-split {
+.template-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-areas:
@@ -578,46 +969,67 @@
                 'details details'
                 'to by'
                 'date date';
-            column-gap: 30px;
+            column-gap: 28px;
             row-gap: 0;
             align-items: start;
-            background: white;
+            background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+            padding: 64px 56px 44px;
+            position: relative;
+        }
+
+        .template-split::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #2c3e50, #34495e);
         }
 
         .template-split .logo-section {
             grid-area: logo;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             text-align: center;
         }
 
         .template-split .logo-section img {
-            height: 90px;
+            height: 85px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
         }
 
         .template-split .university-name {
             grid-area: university;
             width: 100%;
             text-align: left;
-            margin-bottom: 26px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid #1a1a1a;
-            font-size: 34px;
+            margin-bottom: 22px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #2c3e50;
+            font-size: 32px;
+            font-weight: 700;
+            color: #2c3e50;
+            letter-spacing: 0.5px;
         }
 
         .template-split .assignment-title-text {
             grid-area: title;
             justify-self: start;
-            margin-bottom: 34px;
-            padding: 14px 20px;
-            background: #1a1a1a;
+            margin-bottom: 28px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
             color: white;
+            border-radius: 4px;
+            font-weight: 600;
         }
 
         .template-split .details-section {
             grid-area: details;
-            margin-bottom: 34px;
-            border: 1px solid #1a1a1a;
-            background: #f5f5f5;
+            margin-bottom: 28px;
+            border: none;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
         }
 
         .template-split .submitted-to,
@@ -625,17 +1037,21 @@
             width: 100%;
             margin-bottom: 0;
             text-align: left;
+            padding: 16px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .template-split .submitted-to {
             grid-area: to;
-            padding-right: 20px;
-            border-right: 1px solid #1a1a1a;
+            padding-right: 16px;
+            border-right: none;
         }
 
         .template-split .submitted-by {
             grid-area: by;
-            padding-left: 20px;
+            padding-left: 16px;
         }
 
         .template-split .info-section h4,
@@ -646,20 +1062,42 @@
         .template-split .info-section h4 {
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 16px;
-            letter-spacing: 1.3px;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 6px;
+        }
+
+        .template-split .info-section p {
+            color: #34495e;
         }
 
 .template-split .submission-date-section {
             grid-area: date;
-            margin-top: 46px;
+            margin-top: 38px;
+            text-align: left;
+            padding-top: 14px;
+            border-top: 2px solid #2c3e50;
+            padding-left: 40px;
+        }
+
+        .template-split .qrcode-section {
+            grid-area: date;
+            position: static;
+            margin-top: 10px;
             text-align: right;
+            justify-self: end;
+            width: auto;
+            padding-right: 10px;
+            align-self: end;
         }
 
         /* Template 6: Sunrise Bloom */
         .template-sunrise {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 88px 68px 56px;
+            background: linear-gradient(145deg, #fff5e6 0%, #ffdec2 50%, #ffcba8 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-sunrise::before {
@@ -669,51 +1107,97 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 80%, rgba(255, 182, 193, 0.4) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(255, 218, 185, 0.4) 0%, transparent 50%);
+            background: radial-gradient(circle at 15% 85%, rgba(255, 183, 133, 0.5) 0%, transparent 45%),
+                        radial-gradient(circle at 85% 15%, rgba(255, 218, 185, 0.4) 0%, transparent 40%),
+                        radial-gradient(circle at 50% 50%, rgba(255, 200, 150, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .template-sunrise::after {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            right: 16px;
+            bottom: 16px;
+            border: 2px solid rgba(211, 84, 0, 0.15);
+            border-radius: 12px;
             pointer-events: none;
         }
 
         .template-sunrise > * { position: relative; z-index: 1; }
 
-        .template-sunrise .logo-section img { height: 98px; }
+        .template-sunrise .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(211, 84, 0, 0.2);
+        }
 
         .template-sunrise .university-name {
-            font-size: 40px;
-            color: #d35400;
-            font-family: Georgia, serif;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            font-size: 38px;
+            color: #c0392b;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 26px;
         }
 
         .template-sunrise .assignment-title-text {
-            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            background: linear-gradient(135deg, #e74c3c 0%, #f39c12 100%);
             color: white;
-            padding: 16px 32px;
-            border-radius: 8px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+            margin-bottom: 32px;
         }
 
         .template-sunrise .details-section {
-            border-color: #f39c12;
-            background: rgba(255,255,255,0.85);
-            border-radius: 16px;
+            border: none;
+            border-left: 5px solid #f39c12;
+            background: rgba(255,255,255,0.8);
+            border-radius: 0 14px 14px 0;
+            padding: 20px 24px;
+            box-shadow: 0 4px 16px rgba(211, 84, 0, 0.1);
         }
 
         .template-sunrise .info-section {
             background: rgba(255,255,255,0.85);
-            border-radius: 16px;
+            border-radius: 14px;
             border: none;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 14px rgba(211, 84, 0, 0.08);
         }
 
-        .template-sunrise .info-section h4 { color: #d35400; }
+        .template-sunrise .info-section h4 { 
+            color: #c0392b;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        .template-sunrise .info-section p {
+            color: #5d4037;
+        }
 
         .template-sunrise .submission-date-section {
-            border-top: 2px solid #e74c3c;
+            border-top: 3px solid #e74c3c;
+            padding-top: 14px;
+            text-align: left;
+            padding-left: 40px;
+        }
+
+        .template-sunrise .submission-date-section p {
+            color: #c0392b;
+            font-weight: 600;
         }
 
         /* Template 7: Emerald Crest */
         .template-emerald {
-            background: linear-gradient(160deg, #134e5e 0%, #71b280 100%);
-            padding: 88px 68px 56px;
+            background: linear-gradient(160deg, #0d3b36 0%, #1a5f4a 50%, #2d8a65 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-emerald::before {
@@ -723,13 +1207,28 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .template-emerald::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(113, 178, 128, 0.3) 0%, transparent 70%);
             pointer-events: none;
         }
 
         .template-emerald > * { position: relative; z-index: 1; }
 
-        .template-emerald .logo-section img { height: 98px; }
+        .template-emerald .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+        }
 
         .template-emerald .university-name,
         .template-emerald .assignment-title-text,
@@ -738,95 +1237,165 @@
         }
 
         .template-emerald .university-name {
-            font-size: 38px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 36px;
+            font-weight: 700;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+            margin-bottom: 26px;
         }
 
         .template-emerald .assignment-title-text {
-            background: rgba(255,255,255,0.2);
-            border: 2px solid white;
-            border-radius: 8px;
-            padding: 14px 28px;
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.6);
+            border-radius: 50px;
+            padding: 12px 28px;
+            font-weight: 600;
+            margin-bottom: 32px;
         }
 
         .template-emerald .details-section {
-            border-color: rgba(255,255,255,0.5);
-            background: rgba(255,255,255,0.15);
-            border-radius: 16px;
+            border: none;
+            background: rgba(255,255,255,0.12);
+            border-radius: 14px;
+            padding: 20px 24px;
+            border-left: 4px solid #71b280;
         }
 
-        .template-emerald .detail-item { color: white; }
+        .template-emerald .detail-item { 
+            color: white; 
+            font-weight: 500;
+        }
 
         .template-emerald .info-section {
-            background: rgba(255,255,255,0.15);
-            border-radius: 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 14px;
             border: none;
+            padding: 18px 22px;
+            margin-bottom: 18px;
         }
 
-        .template-emerald .info-section p { color: white; }
+        .template-emerald .info-section p { 
+            color: rgba(255,255,255,0.95); 
+        }
+
+        .template-emerald .info-section h4 {
+            color: #71b280;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
 
         .template-emerald .submission-date-section {
-            border-top: 2px solid rgba(255,255,255,0.5);
+            border-top: 2px solid rgba(255,255,255,0.4);
+            padding-top: 14px;
+            text-align: left;
+            padding-left: 40px;
         }
 
-        .template-emerald .submission-date-section p { color: white; }
+        .template-emerald .submission-date-section p { 
+            color: white; 
+            font-weight: 600;
+        }
 
         /* Template 8: Coral Wave */
         .template-coral {
-            background: linear-gradient(180deg, #ff9966 0%, #ff5e62 100%);
-            padding: 88px 68px 56px;
+            background: linear-gradient(180deg, #ff7e5f 0%, #feb47b 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-coral::before {
             content: '';
             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 10%, rgba(255,255,255,0.3) 0%, transparent 40%),
+                        radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.2) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .template-coral::after {
+            content: '';
+            position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 200px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            height: 180px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.15' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
             background-size: cover;
             pointer-events: none;
         }
 
         .template-coral > * { position: relative; z-index: 1; }
 
-        .template-coral .logo-section img { height: 98px; }
+        .template-coral .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(255, 94, 98, 0.3);
+        }
 
         .template-coral .university-name {
             color: white;
-            font-size: 40px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 38px;
+            font-weight: 700;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.25);
+            margin-bottom: 26px;
         }
 
         .template-coral .assignment-title-text {
             background: white;
-            color: #ff5e62;
-            padding: 16px 32px;
-            border-radius: 4px;
-            font-weight: 800;
+            color: #e74c3c;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            margin-bottom: 32px;
         }
 
         .template-coral .details-section {
-            background: rgba(255,255,255,0.9);
-            border-radius: 20px;
+            background: rgba(255,255,255,0.92);
+            border-radius: 16px;
             border: none;
+            padding: 20px 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
         }
 
         .template-coral .info-section {
-            background: rgba(255,255,255,0.9);
-            border-radius: 20px;
+            background: rgba(255,255,255,0.92);
+            border-radius: 16px;
             border: none;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
         }
 
-        .template-coral .info-section h4 { color: #ff5e62; }
+        .template-coral .info-section h4 { 
+            color: #c0392b;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        .template-coral .submission-date-section p { color: white; }
+        .template-coral .info-section p {
+            color: #2c3e50;
+        }
+
+        .template-coral .submission-date-section {
+            text-align: left;
+            padding-left: 40px;
+        }
+
+        .template-coral .submission-date-section p { 
+            color: white; 
+            font-weight: 600;
+        }
 
         /* Template 9: Royal Luxe */
         .template-royal {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            padding: 88px 68px 56px;
+            background: linear-gradient(145deg, #0f0c29 0%, #1a1a3e 50%, #24243e 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-royal::before {
@@ -836,9 +1405,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border: 8px solid #e94560;
+            border: 10px solid #e94560;
             pointer-events: none;
             box-sizing: border-box;
+            border-radius: 8px;
         }
 
         .template-royal::after {
@@ -846,62 +1416,92 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, transparent 50%, rgba(233, 69, 96, 0.2) 50%);
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, transparent 40%, rgba(233, 69, 96, 0.25) 60%);
             pointer-events: none;
+            border-radius: 0 8px 0 0;
         }
 
         .template-royal > * { position: relative; z-index: 1; }
 
-        .template-royal .logo-section img { height: 98px; }
+        .template-royal .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(233, 69, 96, 0.3);
+        }
 
         .template-royal .university-name {
-            font-size: 38px;
+            font-size: 36px;
             color: #e94560;
             font-family: 'Playfair Display', Georgia, serif;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 26px;
         }
 
         .template-royal .assignment-title-text {
             color: #ffd700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            font-size: 36px;
+            text-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+            font-size: 34px;
+            font-weight: 700;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(233, 69, 96, 0.15) 100%);
+            padding: 14px 28px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            margin-bottom: 32px;
         }
 
         .template-royal .details-section {
-            border-color: #e94560;
-            background: rgba(26, 26, 46, 0.9);
-            border-radius: 4px;
+            border: none;
+            border-left: 5px solid #e94560;
+            background: rgba(26, 26, 46, 0.85);
+            border-radius: 0 12px 12px 0;
+            padding: 20px 24px;
         }
 
-        .template-royal .detail-item { color: #eaeaea; }
+        .template-royal .detail-item { 
+            color: #ecf0f1; 
+            font-weight: 500;
+        }
 
         .template-royal .info-section {
-            background: rgba(26, 26, 46, 0.9);
-            border: 1px solid #e94560;
-            border-radius: 4px;
+            background: rgba(26, 26, 46, 0.85);
+            border: 1px solid rgba(233, 69, 96, 0.4);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-bottom: 18px;
         }
 
         .template-royal .info-section h4 {
             color: #e94560;
             text-transform: uppercase;
             letter-spacing: 2px;
+            font-weight: 700;
         }
 
-        .template-royal .info-section p { color: #eaeaea; }
+        .template-royal .info-section p { 
+            color: #ecf0f1; 
+        }
 
         .template-royal .submission-date-section {
-            border-top-color: #e94560;
+            border-top: 2px solid #e94560;
+            padding-top: 14px;
+            text-align: left;
+            padding-left: 40px;
         }
 
-        .template-royal .submission-date-section p { color: #ffd700; }
+        .template-royal .submission-date-section p { 
+            color: #ffd700; 
+            font-weight: 700;
+        }
 
         /* Template 10: Aurora Glow */
         .template-aurora {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            padding: 88px 68px 56px;
+            background: linear-gradient(145deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            padding: 72px 64px 48px;
             overflow: hidden;
+            position: relative;
         }
 
         .template-aurora::before {
@@ -911,10 +1511,21 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at 30% 30%, rgba(120, 200, 255, 0.15) 0%, transparent 40%),
-                        radial-gradient(circle at 70% 70%, rgba(255, 120, 200, 0.15) 0%, transparent 40%),
-                        radial-gradient(circle at 50% 50%, rgba(200, 255, 120, 0.1) 0%, transparent 40%);
+            background: radial-gradient(circle at 25% 25%, rgba(0, 210, 255, 0.18) 0%, transparent 35%),
+                        radial-gradient(circle at 75% 75%, rgba(255, 0, 128, 0.18) 0%, transparent 35%),
+                        radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.12) 0%, transparent 40%);
             animation: auroraShift 15s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .template-aurora::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, rgba(15, 12, 41, 0.5), transparent);
             pointer-events: none;
         }
 
@@ -925,138 +1536,186 @@
 
         .template-aurora > * { position: relative; z-index: 1; }
 
-        .template-aurora .logo-section img { height: 98px; }
+        .template-aurora .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 210, 255, 0.3);
+        }
 
         .template-aurora .university-name {
-            font-size: 38px;
-            background: linear-gradient(90deg, #00d2ff, #3a7bd5, #9b59b6);
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00d2ff, #928DAB, #e056fd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 26px;
         }
 
         .template-aurora .assignment-title-text {
-            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
             color: white;
-            padding: 14px 28px;
+            padding: 12px 26px;
             border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(0, 210, 255, 0.4);
+            font-weight: 600;
+            box-shadow: 0 6px 24px rgba(0, 210, 255, 0.4);
+            margin-bottom: 32px;
         }
 
         .template-aurora .details-section {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 20px 24px;
         }
 
-        .template-aurora .detail-item { color: white; }
+        .template-aurora .detail-item { 
+            color: rgba(255,255,255,0.95); 
+            font-weight: 500;
+        }
 
         .template-aurora .info-section {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 18px 22px;
+            margin-bottom: 18px;
         }
 
         .template-aurora .info-section h4 {
             color: #00d2ff;
             text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1.2px;
         }
 
-        .template-aurora .info-section p { color: white; }
+        .template-aurora .info-section p { 
+            color: rgba(255,255,255,0.95); 
+        }
 
         .template-aurora .submission-date-section {
-            border-top: 1px solid rgba(255,255,255,0.3);
+            border-top: 1px solid rgba(255,255,255,0.25);
+            padding-top: 14px;
+            text-align: left;
+            padding-left: 40px;
         }
 
-        .template-aurora .submission-date-section p { color: #00d2ff; }
+        .template-aurora .submission-date-section p { 
+            color: #00d2ff; 
+            font-weight: 600;
+        }
 
         /* Template 11: Citrus Pop */
         .template-citrus {
-            background: linear-gradient(45deg, #ffffff 0%, #fff3e0 100%);
-            padding: 88px 68px 56px;
+            background: linear-gradient(145deg, #fffcf5 0%, #fff8e1 50%, #ffecb3 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-citrus::before {
             content: '';
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle at 100% 0%, rgba(255, 193, 7, 0.4) 0%, transparent 70%);
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle at 100% 0%, rgba(255, 193, 7, 0.25) 0%, transparent 60%);
             pointer-events: none;
         }
 
         .template-citrus::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle at 0% 100%, rgba(76, 175, 80, 0.3) 0%, transparent 70%);
+            bottom: -30%;
+            left: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle at 0% 100%, rgba(76, 175, 80, 0.25) 0%, transparent 60%);
             pointer-events: none;
         }
 
         .template-citrus > * { position: relative; z-index: 1; }
 
-        .template-citrus .logo-section img { height: 98px; }
+        .template-citrus .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.25);
+        }
 
         .template-citrus .university-name {
-            font-size: 42px;
-            font-weight: 900;
-            color: #ff9800;
+            font-size: 40px;
+            font-weight: 800;
+            color: #f57c00;
+            margin-bottom: 26px;
         }
 
         .template-citrus .assignment-title-text {
-            background: #4caf50;
+            background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
             color: white;
-            padding: 16px 32px;
-            font-weight: 800;
-            letter-spacing: 4px;
+            padding: 14px 28px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            border-radius: 50px;
+            box-shadow: 0 6px 16px rgba(76, 175, 80, 0.35);
+            margin-bottom: 32px;
         }
 
         .template-citrus .details-section {
             background: white;
-            border-radius: 16px;
-            border: 3px solid #ff9800;
-            box-shadow: 4px 4px 0 #4caf50;
+            border-radius: 14px;
+            border: none;
+            border-left: 5px solid #ff9800;
+            padding: 20px 24px;
+            box-shadow: 0 4px 16px rgba(255, 152, 0, 0.15);
         }
 
         .template-citrus .info-section {
             background: white;
-            border-radius: 16px;
+            border-radius: 14px;
+            border: none;
             border-left: 4px solid #ff9800;
-            box-shadow: 4px 4px 0 #4caf50;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 16px rgba(76, 175, 80, 0.12);
         }
 
         .template-citrus .info-section h4 {
-            color: #ff9800;
+            color: #f57c00;
             text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1.2px;
         }
 
-        .template-citrus .submission-date-section {
+        .template-citrus .info-section p {
+            color: #3e2723;
+        }
+
+.template-citrus .submission-date-section {
             border-top: 3px dashed #ff9800;
+            text-align: left;
+            padding-left: 40px;
         }
 
         /* Template 12: Ruby Edge */
         .template-ruby {
-            background: linear-gradient(135deg, #2c0000 0%, #4a0000 50%, #2c0000 100%);
-            padding: 88px 68px 56px;
+            background: linear-gradient(145deg, #1a0000 0%, #3d0000 50%, #1a0000 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-ruby::before {
             content: '';
             position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            border: 2px solid #ff0040;
+            top: 24px;
+            left: 24px;
+            right: 24px;
+            bottom: 24px;
+            border: 3px solid #ff1744;
             pointer-events: none;
-            box-shadow: 0 0 20px rgba(255, 0, 64, 0.3), inset 0 0 20px rgba(255, 0, 64, 0.1);
+            box-shadow: 0 0 30px rgba(255, 23, 68, 0.4), inset 0 0 30px rgba(255, 23, 68, 0.15);
+            border-radius: 8px;
         }
 
         .template-ruby::after {
@@ -1066,51 +1725,80 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,0,64,0.03) 10px, rgba(255,0,64,0.03) 20px);
+            background: repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(255,0,68,0.04) 12px, rgba(255,0,68,0.04) 24px);
             pointer-events: none;
         }
 
         .template-ruby > * { position: relative; z-index: 1; }
 
-        .template-ruby .logo-section img { height: 98px; }
+        .template-ruby .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 8px 28px rgba(255, 0, 68, 0.35);
+        }
 
         .template-ruby .university-name {
-            font-size: 36px;
-            color: #ff0040;
-            letter-spacing: 4px;
-            text-shadow: 0 0 10px rgba(255, 0, 64, 0.5);
+            font-size: 34px;
+            color: #ff1744;
+            letter-spacing: 3px;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(255, 0, 68, 0.6);
+            margin-bottom: 26px;
         }
 
         .template-ruby .assignment-title-text {
-            background: linear-gradient(90deg, #ff0040, #ff4080);
+            background: linear-gradient(135deg, #ff1744 0%, #f50057 100%);
             color: white;
-            padding: 14px 28px;
-            font-weight: 900;
+            padding: 12px 26px;
+            font-weight: 800;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(255, 0, 68, 0.4);
+            margin-bottom: 32px;
         }
 
         .template-ruby .details-section {
             background: rgba(255,255,255,0.95);
-            border-radius: 4px;
+            border-radius: 12px;
+            padding: 20px 24px;
+            border: 1px solid rgba(255, 0, 68, 0.2);
         }
 
         .template-ruby .info-section {
             background: rgba(255,255,255,0.95);
-            border-radius: 4px;
+            border-radius: 12px;
             border: none;
+            padding: 18px 22px;
+            margin-bottom: 18px;
         }
 
-        .template-ruby .info-section h4 { color: #ff0040; }
+        .template-ruby .info-section h4 { 
+            color: #d50000;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .template-ruby .info-section p {
+            color: #212121;
+        }
 
         .template-ruby .submission-date-section {
-            border-top-color: #ff0040;
+            border-top: 2px solid #ff1744;
+            padding-top: 14px;
+            text-align: left;
+            padding-left: 40px;
         }
 
-        .template-ruby .submission-date-section p { color: #ff0040; }
+        .template-ruby .submission-date-section p { 
+            color: #ff1744; 
+            font-weight: 700;
+        }
 
         /* Template 13: Lagoon Flow */
         .template-lagoon {
             background: linear-gradient(180deg, #e0f7fa 0%, #80deea 50%, #26c6da 100%);
-            padding: 88px 68px 56px;
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-lagoon::before {
@@ -1120,58 +1808,91 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 10% 90%, rgba(255,255,255,0.5) 0%, transparent 30%),
-                        radial-gradient(circle at 90% 10%, rgba(255,255,255,0.5) 0%, transparent 30%);
+            background: radial-gradient(circle at 8% 92%, rgba(255,255,255,0.6) 0%, transparent 30%),
+                        radial-gradient(circle at 92% 8%, rgba(255,255,255,0.6) 0%, transparent 30%);
             pointer-events: none;
+        }
+
+        .template-lagoon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #00bcd4, #0097a7, #00bcd4);
         }
 
         .template-lagoon > * { position: relative; z-index: 1; }
 
-        .template-lagoon .logo-section img { height: 98px; }
+        .template-lagoon .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0, 131, 143, 0.25);
+        }
 
         .template-lagoon .university-name {
-            font-size: 40px;
+            font-size: 38px;
             color: #006064;
             font-weight: 700;
+            margin-bottom: 26px;
         }
 
         .template-lagoon .assignment-title-text {
             background: white;
             color: #00838f;
-            padding: 16px 32px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 131, 143, 0.2);
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(0, 131, 143, 0.25);
+            margin-bottom: 32px;
         }
 
         .template-lagoon .details-section {
             background: white;
-            border-radius: 20px;
+            border-radius: 14px;
             border: none;
-            box-shadow: 0 8px 20px rgba(0, 131, 143, 0.15);
+            padding: 20px 24px;
+            box-shadow: 0 8px 24px rgba(0, 131, 143, 0.15);
         }
 
         .template-lagoon .info-section {
             background: white;
-            border-radius: 20px;
+            border-radius: 14px;
             border: none;
-            box-shadow: 0 8px 20px rgba(0, 131, 143, 0.15);
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 24px rgba(0, 131, 143, 0.15);
         }
 
         .template-lagoon .info-section h4 {
             color: #00838f;
             text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .template-lagoon .info-section p {
+            color: #006064;
         }
 
         .template-lagoon .submission-date-section {
-            border-top-color: #00838f;
+            border-top: 3px solid #00bcd4;
+            padding-top: 14px;
+            text-align: left;
+            padding-left: 40px;
         }
 
-        .template-lagoon .submission-date-section p { color: #00838f; }
+        .template-lagoon .submission-date-section p { 
+            color: #00838f; 
+            font-weight: 600;
+        }
 
         /* Template 14: Solar Flare */
         .template-solar {
-            background: linear-gradient(135deg, #ff8a00 0%, #da1b60 50%, #8e1c91 100%);
-            padding: 88px 68px 56px;
+            background: linear-gradient(145deg, #ff6f00 0%, #c51162 50%, #7b1fa2 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-solar::before {
@@ -1179,55 +1900,88 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 600px;
-            height: 600px;
+            width: 700px;
+            height: 700px;
             transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 60%);
             animation: solarPulse 4s ease-in-out infinite;
             pointer-events: none;
         }
 
         @keyframes solarPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.7; }
         }
 
         .template-solar > * { position: relative; z-index: 1; }
 
-        .template-solar .logo-section img { height: 98px; }
+        .template-solar .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+        }
 
         .template-solar .university-name {
-            font-size: 42px;
+            font-size: 40px;
             color: white;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.35);
+            margin-bottom: 26px;
         }
 
         .template-solar .assignment-title-text {
             background: rgba(255,255,255,0.95);
-            color: #da1b60;
-            padding: 16px 32px;
+            color: #c51162;
+            padding: 14px 28px;
+            font-weight: 700;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             font-weight: 900;
             font-size: 28px;
         }
 
         .template-solar .details-section {
             background: rgba(255,255,255,0.95);
-            border-radius: 16px;
+            border-radius: 14px;
+            padding: 20px 24px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
         .template-solar .info-section {
             background: rgba(255,255,255,0.95);
-            border-radius: 16px;
+            border-radius: 14px;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
-        .template-solar .info-section h4 { color: #da1b60; }
+        .template-solar .info-section h4 { 
+            color: #c51162; 
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        .template-solar .submission-date-section p { color: white; }
+        .template-solar .info-section p {
+            color: #4a148c;
+        }
+
+        .template-solar .submission-date-section {
+            text-align: left;
+            padding-left: 40px;
+        }
+
+        .template-solar .submission-date-section p { 
+            color: white; 
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
 
         /* Template 15: Rose Garden */
         .template-rose {
-            background: linear-gradient(135deg, #f8bbd9 0%, #f48fb1 50%, #f06292 100%);
-            padding: 88px 68px 56px;
+            background: linear-gradient(145deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-rose::before {
@@ -1237,19 +1991,24 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='2' fill='%23ffffff' fill-opacity='0.3'/%3E%3C/svg%3E");
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='2' fill='%23ffffff' fill-opacity='0.4'/%3E%3Ccircle cx='25' cy='25' r='1.5' fill='%23ffffff' fill-opacity='0.3'/%3E%3Ccircle cx='75' cy='75' r='1.5' fill='%23ffffff' fill-opacity='0.3'/%3E%3C/svg%3E");
             pointer-events: none;
         }
 
         .template-rose > * { position: relative; z-index: 1; }
 
-        .template-rose .logo-section img { height: 98px; }
+        .template-rose .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(173, 20, 87, 0.25);
+        }
 
         .template-rose .university-name {
-            font-size: 40px;
+            font-size: 38px;
             color: #880e4f;
-            font-family: 'Brush Script MT', cursive;
-            font-size: 44px;
+            font-family: 'Playfair Display', 'Brush Script MT', cursive;
+            font-weight: 700;
+            margin-bottom: 26px;
         }
 
         .template-rose .assignment-title-text {
@@ -1258,109 +2017,160 @@
             padding: 14px 28px;
             border-radius: 50px;
             font-family: 'Georgia', serif;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(173, 20, 87, 0.2);
+            margin-bottom: 32px;
         }
 
         .template-rose .details-section {
-            background: rgba(255,255,255,0.9);
-            border-radius: 20px;
+            background: rgba(255,255,255,0.88);
+            border-radius: 14px;
             border: none;
+            padding: 20px 24px;
+            box-shadow: 0 4px 16px rgba(173, 20, 87, 0.12);
         }
 
         .template-rose .info-section {
-            background: rgba(255,255,255,0.9);
-            border-radius: 20px;
+            background: rgba(255,255,255,0.88);
+            border-radius: 14px;
             border: none;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 16px rgba(173, 20, 87, 0.12);
         }
 
-        .template-rose .info-section h4 { color: #ad1457; }
+        .template-rose .info-section h4 { 
+            color: #ad1457; 
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .template-rose .info-section p {
+            color: #4a148c;
+        }
 
         .template-rose .submission-date-section {
-            border-top-color: #880e4f;
+            border-top: 2px solid #e91e63;
+            padding-top: 14px;
+            text-align: left;
+            padding-left: 40px;
         }
 
-        .template-rose .submission-date-section p { color: #880e4f; }
+        .template-rose .submission-date-section p { 
+            color: #880e4f; 
+            font-weight: 700;
+        }
 
         /* Template 16: Midnight Neon */
         .template-midnight {
-            background: linear-gradient(180deg, #0d0d0d 0%, #1a1a2e 50%, #162447 100%);
-            padding: 88px 68px 56px;
+            background: linear-gradient(180deg, #0a0a0f 0%, #12122a 50%, #1a1a3a 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-midnight::before {
             content: '';
             position: absolute;
-            top: 50%;
+            top: 40%;
             left: 0;
             width: 100%;
-            height: 2px;
+            height: 3px;
             background: linear-gradient(90deg, transparent, #00fff5, #ff00ff, transparent);
-            box-shadow: 0 0 20px #00fff5, 0 0 40px #ff00ff;
+            box-shadow: 0 0 25px #00fff5, 0 0 50px #ff00ff;
             pointer-events: none;
         }
 
         .template-midnight::after {
             content: '';
             position: absolute;
-            bottom: 50%;
+            bottom: 40%;
             left: 0;
             width: 100%;
-            height: 2px;
+            height: 3px;
             background: linear-gradient(90deg, transparent, #ff00ff, #00fff5, transparent);
-            box-shadow: 0 0 20px #ff00ff, 0 0 40px #00fff5;
+            box-shadow: 0 0 25px #ff00ff, 0 0 50px #00fff5;
             pointer-events: none;
         }
 
         .template-midnight > * { position: relative; z-index: 1; }
 
-        .template-midnight .logo-section img { height: 98px; }
+        .template-midnight .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 255, 245, 0.25);
+        }
 
         .template-midnight .university-name {
-            font-size: 38px;
-            background: linear-gradient(90deg, #00fff5, #ff00ff);
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00fff5, #e040fb, #ff00ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 26px;
         }
 
         .template-midnight .assignment-title-text {
             color: #00fff5;
             border: 2px solid #00fff5;
-            padding: 14px 28px;
-            box-shadow: 0 0 15px rgba(0, 255, 245, 0.5);
-            text-shadow: 0 0 10px #00fff5;
+            padding: 12px 26px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 0 20px rgba(0, 255, 245, 0.5), inset 0 0 20px rgba(0, 255, 245, 0.1);
+            text-shadow: 0 0 15px #00fff5;
+            margin-bottom: 32px;
         }
 
         .template-midnight .details-section {
-            background: rgba(255,255,255,0.05);
-            border-radius: 16px;
-            border: 1px solid rgba(0, 255, 245, 0.3);
+            background: rgba(255,255,255,0.04);
+            border-radius: 14px;
+            border: 1px solid rgba(0, 255, 245, 0.25);
+            padding: 20px 24px;
         }
 
-        .template-midnight .detail-item { color: #e0e0e0; }
+        .template-midnight .detail-item { 
+            color: #e0e0e0; 
+            font-weight: 500;
+        }
 
         .template-midnight .info-section {
-            background: rgba(255,255,255,0.05);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 0, 255, 0.3);
+            background: rgba(255,255,255,0.04);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 0, 255, 0.25);
+            padding: 18px 22px;
+            margin-bottom: 18px;
         }
 
-        .template-midnight .info-section h4 { color: #ff00ff; }
+        .template-midnight .info-section h4 { 
+            color: #ff00ff; 
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
 
-        .template-midnight .info-section p { color: #e0e0e0; }
+        .template-midnight .info-section p { 
+            color: #e0e0e0; 
+        }
 
         .template-midnight .submission-date-section {
-            border-top: 1px solid rgba(0, 255, 245, 0.5);
+            border-top: 1px solid rgba(0, 255, 245, 0.4);
+            padding-top: 14px;
+            text-align: left;
+            padding-left: 40px;
         }
 
         .template-midnight .submission-date-section p {
             color: #00fff5;
-            text-shadow: 0 0 10px #00fff5;
+            font-weight: 700;
+            text-shadow: 0 0 15px #00fff5;
         }
 
         /* Template 17: Tropical Burst */
         .template-tropical {
-            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 50%, #ffd700 100%);
-            padding: 88px 68px 56px;
+            background: linear-gradient(145deg, #2e7d32 0%, #43a047 50%, #7cb342 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-tropical::before {
@@ -1377,97 +2187,167 @@
 
         .template-tropical > * { position: relative; z-index: 1; }
 
-        .template-tropical .logo-section img { height: 98px; }
+        .template-tropical .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+        }
 
         .template-tropical .university-name {
-            font-size: 42px;
+            font-size: 40px;
             color: white;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.35);
+            margin-bottom: 26px;
         }
 
         .template-tropical .assignment-title-text {
-            background: #ff6b6b;
+            background: linear-gradient(135deg, #ff7043 0%, #f4511e 100%);
             color: white;
-            padding: 16px 32px;
-            border-radius: 8px;
-            font-weight: 800;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(255, 112, 67, 0.4);
+            margin-bottom: 32px;
         }
 
         .template-tropical .details-section {
             background: white;
-            border-radius: 20px;
+            border-radius: 14px;
             border: none;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            padding: 20px 24px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
 
         .template-tropical .info-section {
             background: white;
-            border-radius: 20px;
+            border-radius: 14px;
             border: none;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
 
-        .template-tropical .info-section h4 { color: #56ab2f; }
+        .template-tropical .info-section h4 { 
+            color: #2e7d32; 
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        .template-tropical .submission-date-section p { color: white; }
+        .template-tropical .info-section p {
+            color: #1b5e20;
+        }
+
+        .template-tropical .submission-date-section {
+            text-align: left;
+            padding-left: 40px;
+        }
+
+        .template-tropical .submission-date-section p { 
+            color: white; 
+            font-weight: 700;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
 
         /* Template 18: Peach Mist */
         .template-peach {
-            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #e17055 100%);
-            padding: 88px 68px 56px;
+            background: linear-gradient(145deg, #fff8e1 0%, #ffccbc 50%, #ffab91 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-peach::before {
             content: '';
             position: absolute;
-            top: 20%;
-            right: 10%;
-            width: 200px;
-            height: 200px;
-            background: rgba(255,255,255,0.3);
+            top: 15%;
+            right: 5%;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%);
             border-radius: 50%;
-            filter: blur(40px);
+            filter: blur(35px);
+            pointer-events: none;
+        }
+
+        .template-peach::after {
+            content: '';
+            position: absolute;
+            bottom: 10%;
+            left: 5%;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(255, 171, 145, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(30px);
             pointer-events: none;
         }
 
         .template-peach > * { position: relative; z-index: 1; }
 
-        .template-peach .logo-section img { height: 98px; }
+        .template-peach .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(225, 112, 85, 0.25);
+        }
 
         .template-peach .university-name {
-            font-size: 40px;
-            color: #2d3436;
+            font-size: 38px;
+            color: #3e2723;
+            font-weight: 700;
+            margin-bottom: 26px;
         }
 
         .template-peach .assignment-title-text {
             background: white;
-            color: #e17055;
+            color: #d84315;
             padding: 14px 28px;
             border-radius: 50px;
             font-weight: 700;
+            box-shadow: 0 6px 20px rgba(216, 67, 21, 0.2);
+            margin-bottom: 32px;
         }
 
         .template-peach .details-section {
-            background: rgba(255,255,255,0.9);
-            border-radius: 20px;
+            background: rgba(255,255,255,0.88);
+            border-radius: 14px;
             border: none;
+            padding: 20px 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
         }
 
         .template-peach .info-section {
-            background: rgba(255,255,255,0.9);
-            border-radius: 20px;
+            background: rgba(255,255,255,0.88);
+            border-radius: 14px;
             border: none;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
         }
 
-        .template-peach .info-section h4 { color: #e17055; }
+        .template-peach .info-section h4 { 
+            color: #d84315; 
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .template-peach .info-section p {
+            color: #3e2723;
+        }
 
         .template-peach .submission-date-section {
-            border-top-color: #e17055;
+            border-top: 2px solid #ffab91;
+            padding-top: 14px;
+            text-align: left;
+            padding-left: 40px;
         }
 
         /* Template 19: Oceanic Drive */
         .template-oceanic {
-            background: linear-gradient(200deg, #021b79 0%, #0575e6 50%, #021b79 100%);
-            padding: 88px 68px 56px;
+            background: linear-gradient(200deg, #0d1b4a 0%, #1e3a8a 50%, #0d1b4a 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-oceanic::before {
@@ -1477,61 +2357,97 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.05) 100%);
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 212, 255, 0.08) 100%);
             pointer-events: none;
+        }
+
+        .template-oceanic::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #00d4ff, #0091ff, #00d4ff);
         }
 
         .template-oceanic > * { position: relative; z-index: 1; }
 
-        .template-oceanic .logo-section img { height: 98px; }
+        .template-oceanic .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+        }
 
         .template-oceanic .university-name {
-            font-size: 38px;
+            font-size: 36px;
             color: #00d4ff;
+            font-weight: 700;
             letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+            margin-bottom: 26px;
         }
 
         .template-oceanic .assignment-title-text {
-            background: linear-gradient(90deg, #00d4ff, #00a8ff);
+            background: linear-gradient(135deg, #00d4ff 0%, #0091ff 100%);
             color: white;
-            padding: 14px 28px;
-            border-radius: 4px;
+            padding: 12px 26px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+            margin-bottom: 32px;
         }
 
         .template-oceanic .details-section {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 14px;
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            padding: 20px 24px;
         }
 
-        .template-oceanic .detail-item { color: white; }
+        .template-oceanic .detail-item { 
+            color: white; 
+            font-weight: 500;
+        }
 
         .template-oceanic .info-section {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 18px 22px;
+            margin-bottom: 18px;
         }
 
         .template-oceanic .info-section h4 {
             color: #00d4ff;
             text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1.2px;
         }
 
-        .template-oceanic .info-section p { color: white; }
+        .template-oceanic .info-section p { 
+            color: rgba(255,255,255,0.95); 
+        }
 
         .template-oceanic .submission-date-section {
-            border-top: 1px solid rgba(0, 212, 255, 0.5);
+            border-top: 1px solid rgba(0, 212, 255, 0.4);
+            padding-top: 14px;
+            text-align: left;
+            padding-left: 40px;
         }
 
-        .template-oceanic .submission-date-section p { color: #00d4ff; }
+        .template-oceanic .submission-date-section p { 
+            color: #00d4ff; 
+            font-weight: 700;
+        }
 
         /* Template 20: Festival Bright */
         .template-festival {
-            background: repeating-linear-gradient(45deg, #ff6b6b, #ff6b6b 20px, #ee5a5a 20px, #ee5a5a 40px);
-            padding: 88px 68px 56px;
+            background: linear-gradient(135deg, #e53935 0%, #c62828 50%, #b71c1c 100%);
+            padding: 72px 64px 48px;
+            position: relative;
         }
 
         .template-festival::before {
@@ -1541,56 +2457,89 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%, rgba(255,255,255,0.3) 100%);
+            background: repeating-linear-gradient(45deg, transparent, transparent 25px, rgba(255,255,255,0.08) 25px, rgba(255,255,255,0.08) 50px);
+            pointer-events: none;
+        }
+
+        .template-festival::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 50%, rgba(255,255,255,0.25) 100%);
             pointer-events: none;
         }
 
         .template-festival > * { position: relative; z-index: 1; }
 
-        .template-festival .logo-section img { height: 98px; }
+        .template-festival .logo-section img { 
+            height: 94px; 
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+        }
 
         .template-festival .university-name {
-            font-size: 42px;
+            font-size: 40px;
             color: white;
-            text-shadow: 3px 3px 0 #2d3436;
-            font-weight: 900;
+            font-weight: 800;
+            text-shadow: 3px 3px 0 #1a1a1a;
+            letter-spacing: 1px;
+            margin-bottom: 26px;
         }
 
         .template-festival .assignment-title-text {
-            background: #00d2ff;
+            background: linear-gradient(135deg, #00e5ff 0%, #00b8d4 100%);
             color: white;
-            padding: 16px 32px;
-            border-radius: 8px;
-            font-size: 28px;
-            box-shadow: 4px 4px 0 #2d3436;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 30px;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            border: 2px solid white;
+            margin-bottom: 32px;
         }
 
         .template-festival .details-section {
             background: white;
-            border-radius: 16px;
-            border: 3px solid #2d3436;
-            box-shadow: 4px 4px 0 #2d3436;
+            border-radius: 14px;
+            border: 3px solid #1a1a1a;
+            padding: 20px 24px;
+            box-shadow: 5px 5px 0 #1a1a1a;
         }
 
         .template-festival .info-section {
             background: white;
-            border-radius: 16px;
-            border: 3px solid #2d3436;
-            box-shadow: 4px 4px 0 #2d3436;
+            border-radius: 14px;
+            border: 3px solid #1a1a1a;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            box-shadow: 5px 5px 0 #1a1a1a;
         }
 
         .template-festival .info-section h4 {
-            color: #ff6b6b;
+            color: #c62828;
             text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .template-festival .info-section p {
+            color: #1a1a1a;
         }
 
         .template-festival .submission-date-section {
-            border-top: 3px solid #2d3436;
+            border-top: 3px solid #1a1a1a;
+            padding-top: 14px;
+            text-align: left;
+            padding-left: 40px;
         }
 
         .template-festival .submission-date-section p {
             color: white;
-            text-shadow: 1px 1px 0 #2d3436;
+            font-weight: 700;
+            text-shadow: 2px 2px 0 #1a1a1a;
         }
 
         @media (max-width: 1024px) {
@@ -1606,18 +2555,35 @@
                 transform: scale(0.85);
                 transform-origin: top center;
             }
+            .preview-header {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
         }
 
         @media (max-width: 768px) {
             .header h1 { font-size: 1.5rem; }
+            .header p { letter-spacing: 1.5px; }
             .app-container {
                 grid-template-columns: 1fr;
                 gap: 1rem;
                 padding: 1rem;
                 min-height: auto;
             }
-            .form-panel { padding: 1.5rem; max-height: none; }
-            .preview-panel { padding: 1rem; max-height: none; }
+            .form-panel { 
+                padding: 1.5rem;
+                max-height: none;
+                border-radius: var(--radius-md);
+            }
+            .preview-panel { 
+                padding: 1rem;
+                max-height: none;
+                border-radius: var(--radius-md);
+            }
+            .preview-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
             .action-buttons {
                 grid-template-columns: 1fr;
                 position: static;
@@ -1625,51 +2591,108 @@
                 border-top: none;
                 padding: 1rem 0;
             }
+            .btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
             .cover-page {
                 transform: scale(0.75);
                 transform-origin: top center;
+            }
+            .form-section {
+                padding-left: 0.75rem;
+            }
+            .form-section::before {
+                width: 2px;
             }
         }
 
         @media (max-width: 480px) {
             .header h1 { font-size: 1.2rem; }
+            .header p { letter-spacing: 1px; font-size: 1rem; }
             .cover-page { transform: scale(0.65); }
+            #libraryStatus {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.75rem;
+            }
         }
 
         .form-panel::-webkit-scrollbar, .preview-panel::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
         .form-panel::-webkit-scrollbar-track, .preview-panel::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #f5f5f5;
+            border-radius: 4px;
         }
         .form-panel::-webkit-scrollbar-thumb, .preview-panel::-webkit-scrollbar-thumb {
-            background: #888;
+            background: linear-gradient(180deg, #ccc, #aaa);
             border-radius: 4px;
         }
         .form-panel::-webkit-scrollbar-thumb:hover, .preview-panel::-webkit-scrollbar-thumb:hover {
-            background: #555;
+            background: linear-gradient(180deg, #bbb, #999);
         }
 
         .footer {
-            background-color: #f9f9f9;
-            border-top: 1px solid var(--border);
-            padding: 1.5rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-top: 3px solid var(--accent-gold);
+            padding: 1.5rem 2rem;
             text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+            font-size: 1rem;
+            color: var(--accent-gold);
             margin-top: 2rem;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            opacity: 0.5;
+        }
+
+        .footer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 70% 30%, rgba(255,215,0,0.06) 0%, transparent 40%),
+                        radial-gradient(circle at 30% 70%, rgba(0,102,204,0.04) 0%, transparent 40%);
+            pointer-events: none;
         }
 
         .footer a {
-            color: var(--focus);
+            color: var(--accent-gold);
             text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
+            font-weight: 700;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .footer a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
         }
 
         .footer a:hover {
-            color: #0052a3;
-            text-decoration: underline;
+            color: #ffffff;
+        }
+
+        .footer a:hover::after {
+            width: 100%;
         }
 
         .footer-icon {
@@ -1679,12 +2702,9 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1>📋 Assignment Cover Page Generator</h1>
+    <header class="header premium-header">
+        <h1>Assignment Cover Page Generator</h1>
         <p>GONO BISHWABIDYALAY</p>
-        <div id="libraryStatus" style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
-            Loading libraries...
-        </div>
     </header>
 
     <div class="app-container">
@@ -1698,25 +2718,8 @@
                             <option value="classic">Classic Centered</option>
                             <option value="modern">Modern Accent</option>
                             <option value="framed">Formal Framed</option>
-                            <option value="elegant">Elegant Serif</option>
-                            <option value="split">Split Layout</option>
-                            <option value="sunrise">Sunrise Bloom</option>
-                            <option value="emerald">Emerald Crest</option>
-                            <option value="coral">Coral Wave</option>
-                            <option value="royal">Royal Luxe</option>
-                            <option value="aurora">Aurora Glow</option>
-                            <option value="citrus">Citrus Pop</option>
-                            <option value="ruby">Ruby Edge</option>
-                            <option value="lagoon">Lagoon Flow</option>
-                            <option value="solar">Solar Flare</option>
-                            <option value="rose">Rose Garden</option>
-                            <option value="midnight">Midnight Neon</option>
-                            <option value="tropical">Tropical Burst</option>
-                            <option value="peach">Peach Mist</option>
-                            <option value="oceanic">Ocean Drive</option>
-                            <option value="festival">Festival Bright</option>
                         </select>
-                        <p class="field-hint">Choose from 20 styles. The selected design is used for preview, PDF, and image export.</p>
+                        <p class="field-hint">Choose from 3 styles. The selected design is used for preview, PDF, and image export.</p>
                     </div>
                 </div>
 
@@ -1809,10 +2812,13 @@
         </div>
 
         <div class="preview-panel">
+            <div class="preview-header">
+                <span class="preview-title">Live Preview</span>
+            </div>
             <div class="preview-scroll">
                 <div class="cover-page template-classic" id="coverPage">
-                    <div class="logo-section">
-                        <img src="logo.jpg" alt="GONO BISHWABIDYALAY Logo" crossorigin="anonymous">
+                    <div class="logo-section premium-logo">
+                        <img src="logo.png" alt="GONO BISHWABIDYALAY Logo" style="background: transparent; box-shadow: 0 8px 32px rgba(0,0,0,0.12); border-radius: 20px; padding: 12px;" crossorigin="anonymous">
                     </div>
 
                     <div class="university-name">GONO BISHWABIDYALAY</div>
@@ -1844,15 +2850,20 @@
                     <div class="submission-date-section">
                         <p>Date: <span id="previewDate">DD/MM/YYYY</span></p>
                     </div>
+
+                    <div class="qrcode-section">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://metariqul.github.io/Assignment-Cover-Page/" alt="QR Code" crossorigin="anonymous">
+                        <p>Create Your Own</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Footer with GitHub Credit -->
-    <footer class="footer">
-        <p><span class="footer-icon">🔗</span>Created for <strong>GONO BISHWABIDYALAY</strong> | 
-        <a href="https://github.com/MeTariqul/Assignment-Cover-Page" target="_blank" rel="noopener noreferrer">📂 GitHub Repository</a></p>
+    <footer class="footer premium-footer">
+        <p><span class="footer-icon"></span>Created for <strong>GONO BISHWABIDYALAY</strong> |
+        <a href="https://github.com/MeTariqul/Assignment-Cover-Page" target="_blank" rel="noopener noreferrer">GitHub Repository</a></p>
     </footer>
 
     <!-- Libraries for PDF and Image Export -->
@@ -1900,18 +2911,7 @@
             console.log('html2canvas available:', h2c);
             console.log('html2pdf available:', h2p);
             console.log('jsPDF available:', jspdf);
-            librariesReady = h2c && jspdf;
-
-            const statusDiv = document.getElementById('libraryStatus');
-            if (statusDiv) {
-                statusDiv.innerHTML = `
-                    Libraries:
-                    ${h2c ? 'html2canvas ready' : 'html2canvas missing'} |
-                    ${jspdf ? 'jsPDF ready' : 'jsPDF missing'} |
-                    ${h2p ? 'html2pdf loaded' : 'html2pdf not loaded'}
-                `;
-                statusDiv.style.color = librariesReady ? '#90EE90' : '#FFB6C6';
-            }
+librariesReady = h2c && jspdf;
 
             console.log('All libraries ready:', librariesReady);
         });
@@ -1927,24 +2927,7 @@
         const DESIGN_TEMPLATES = [
             'classic',
             'modern',
-            'framed',
-            'elegant',
-            'split',
-            'sunrise',
-            'emerald',
-            'coral',
-            'royal',
-            'aurora',
-            'citrus',
-            'ruby',
-            'lagoon',
-            'solar',
-            'rose',
-            'midnight',
-            'tropical',
-            'peach',
-            'oceanic',
-            'festival'
+            'framed'
         ];
 
         const state = {

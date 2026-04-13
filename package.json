@@ -1,7 +1,7 @@
 {
   "name": "assignment-cover-page-generator",
-  "version": "2.0.0",
-  "description": "A vanilla HTML/CSS/JavaScript web application for generating professional university assignment cover pages as PDF",
+  "version": "2.1.0",
+  "description": "Premium design update: refined styles and transparent SVG logo (logo.svg) for a professional cover page generator",
   "type": "module",
   "main": "index.html",
   "homepage": "https://github.com/MeTariqul/Assignment-Cover-Page",

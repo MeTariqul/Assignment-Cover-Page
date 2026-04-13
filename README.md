@@ -1,5 +1,7 @@
 # Assignment Cover Page Generator
 
+Premium design update (April 12, 2026): refined typography, spacing, and colors. The app now uses a transparent `logo.svg` by default — replace with your own `logo.svg` for the best results.
+
 A fully client-side web application for generating professional university assignment cover pages as PDF or PNG image files. Built as a single HTML file with no dependencies - just open in any browser.
 
 ## ✨ Features
