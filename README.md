@@ -1,49 +1,36 @@
-# Assignment Cover Page Generator
+# Assignment Cover Page Studio
 
-Premium design update (April 12, 2026): refined typography, spacing, and colors. The app now uses a transparent `logo.svg` by default — replace with your own `logo.svg` for the best results.
+A single-file web application for building polished Gono Bishwabidyalay assignment cover pages and exporting them as A4 PDF or PNG.
 
-A fully client-side web application for generating professional university assignment cover pages as PDF or PNG image files. Built as a single HTML file with no dependencies - just open in any browser.
+## Highlights
 
-## ✨ Features
+- 20 premium templates: Classic Centered, Modern Accent, Formal Framed, Elegant Serif, Split Layout, Sunrise Bloom, Emerald Crest, Coral Wave, Royal Luxe, Aurora Glow, Citrus Pop, Ruby Edge, Lagoon Flow, Solar Flare, Rose Garden, Midnight Neon, Tropical Burst, Peach Mist, Ocean Drive, and Festival Bright
+- Premium professional UI with enhanced styling
+- Live preview that updates as you type
+- PDF and PNG export from the same A4 layout
+- Transparent logo support with enhanced visual effects
+- Local form-state saving with no build step
+- Gold accent color scheme for premium look
 
-- **📥 Smart Input Form**: Collect student, teacher, and course information
-- **🎨 20 Design Templates**: Choose from 20 colorful, professionally designed cover page styles
-- **🖼️ Live Preview**: See real-time cover page preview as you type
-- **📄 PDF Export**: Download as professional A4 PDF
-- **🖼️ Image Export**: Download as high-quality PNG image
-- **🧠 Smart Storage**: Auto-save data to browser localStorage
-- **📱 Responsive Design**: Works on all devices
-- **⚡ Offline Ready**: Works without internet after initial load
+## Quick Start
 
-## 🚀 Quick Start
+Open `index.html` in your browser, fill in the form, choose one of the 20 styles, and export the cover page as PDF or PNG.
 
-Simply open `index.html` in your web browser. No installation required!
+## Logo Notes
 
-## 📦 Templates
+The logo at `logo.png` should have a transparent background for best results. The app displays it with enhanced shadow and border-radius effects.
 
-Choose from 20 beautiful design templates:
+For the cleanest result, use a logo image with:
+- Transparent background
+- Strong contrast
+- Clear separation between logo and canvas edge
 
-1. **Classic Centered** - Clean white design
-2. **Modern Accent** - Blue gradient with accent bars
-3. **Formal Framed** - Black bordered frame
-4. **Elegant Serif** - Warm cream with serif fonts
-5. **Split Layout** - Two-column grid layout
-6. **Sunrise Bloom** - Warm orange/peach gradient
-7. **Emerald Crest** - Deep green with pattern overlay
-8. **Coral Wave** - Vibrant orange/red gradient
-9. **Royal Luxe** - Dark navy with gold/crimson
-10. **Aurora Glow** - Purple/blue with animated aurora
-11. **Citrus Pop** - Bright yellow/green
-12. **Ruby Edge** - Deep red with glowing borders
-13. **Lagoon Flow** - Turquoise gradient
-14. **Solar Flare** - Multi-color with pulsing effect
-15. **Rose Garden** - Pink gradient with floral pattern
-16. **Midnight Neon** - Dark with neon cyan/magenta
-17. **Tropical Burst** - Green/yellow with vibrant accents
-18. **Peach Mist** - Soft peach/coral gradient
-19. **Oceanic Drive** - Deep blue with cyan neon glow
-20. **Festival Bright** - Bold red stripes
+## Project Files
 
-## 📝 License
+- `index.html` - application UI, styles, and export logic
+- `logo.png` - source logo used by the preview and exports
+- `CHANGELOG-PREMIUM.md` - summary of the latest premium design refresh
+
+## License
 
 MIT
